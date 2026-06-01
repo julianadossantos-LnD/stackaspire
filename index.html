@@ -5,7 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>StackAspire — Leadership Development Program</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -32,7 +33,7 @@
   html { scroll-behavior: smooth; }
 
   body {
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Source Sans 3', 'Source Sans Pro', sans-serif;
     color: var(--gray-900);
     background: var(--white);
     overflow-x: hidden;
@@ -55,7 +56,7 @@
   }
   nav.scrolled { box-shadow: 0 2px 24px rgba(0,0,0,0.08); }
   .nav-logo {
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Source Sans 3', 'Source Sans Pro', sans-serif;
     font-weight: 500;
     font-size: 1rem;
     letter-spacing: 0.03em;
@@ -149,7 +150,7 @@
     background: var(--teal-accent);
   }
   h1 {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Source Sans 3', 'Source Sans Pro', sans-serif;
     font-size: clamp(2.75rem, 5vw, 4.25rem);
     line-height: 1.1;
     color: var(--white);
@@ -211,7 +212,7 @@
   }
   .stat-item { }
   .stat-num {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Source Sans 3', 'Source Sans Pro', sans-serif;
     font-size: 2rem;
     color: var(--white);
     display: block;
@@ -273,7 +274,7 @@
     font-weight: 500;
   }
   .hero-card-title {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Source Sans 3', 'Source Sans Pro', sans-serif;
     font-size: 1.3rem;
     color: var(--white);
     margin-bottom: 1.25rem;
@@ -355,7 +356,7 @@
     margin-bottom: 0.75rem;
   }
   h2 {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Source Sans 3', 'Source Sans Pro', sans-serif;
     font-size: clamp(2rem, 3.5vw, 2.75rem);
     line-height: 1.2;
     color: var(--gray-900);
@@ -472,7 +473,7 @@
     font-weight: 500;
   }
   .ring-title {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Source Sans 3', 'Source Sans Pro', sans-serif;
     color: var(--white);
     font-size: 1.4rem;
     line-height: 1.3;
@@ -546,7 +547,7 @@
     position: relative;
   }
   .week-title {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Source Sans 3', 'Source Sans Pro', sans-serif;
     font-size: 1.25rem;
     color: var(--white);
     line-height: 1.25;
@@ -637,6 +638,8 @@
     width: 180px; height: 180px;
     border-radius: 50%;
     background: var(--green-900);
+    padding: 6px; /* ring thickness */
+    box-sizing: border-box;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -645,14 +648,22 @@
     position: relative;
     overflow: hidden;
   }
+  .facilitator-avatar img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    outline: 3px solid rgba(255,0,0,0.9); /* debug: shows image bounds */
+  }
   .facilitator-initials {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Source Sans 3', 'Source Sans Pro', sans-serif;
     font-size: 3rem;
     color: var(--teal-accent);
     font-style: italic;
   }
   .facilitator-name {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Source Sans 3', 'Source Sans Pro', sans-serif;
     font-size: 1.4rem;
     color: var(--gray-900);
     margin-bottom: 0.25rem;
@@ -781,7 +792,7 @@
     font-size: 1rem;
     font-weight: 500;
     color: rgba(255,255,255,0.6);
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Source Sans 3', 'Source Sans Pro', sans-serif;
   }
   .footer-logo span { color: var(--teal-accent); }
   .footer-note {
@@ -1166,7 +1177,7 @@
 <section id="facilitator">
   <div class="facilitator-left">
     <div class="facilitator-avatar">
-      <span class="facilitator-initials">JdS</span>
+      <img class="facilitator-photo" src="assets/E09SZPPK27N-U07D31KAJPN-c2d6d8a82fc1-512.jpeg" alt="Juliana dos Santos">
     </div>
     <div class="facilitator-name">Juliana dos Santos</div>
     <div class="facilitator-role">Program Facilitator</div>
