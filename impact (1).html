@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StackAspire — Program Impact</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --green:#005526;--green-mid:#007a3d;--green-light:#e0f4eb;--green-border:#a8d9be;--green-muted:#004d20;
+  --text:#1a1a1a;--text-muted:#666;--text-faint:#999;
+  --surface:#f7f6f3;--surface-alt:#f0ede8;--border:rgba(0,0,0,0.09);
+  --radius:12px;--radius-sm:8px;
+  --ff-display:'DM Serif Display',Georgia,serif;
+  --ff-body:'Source Sans 3',system-ui,sans-serif;
+}
+html{font-size:16px;scroll-behavior:smooth;}
+body{font-family:var(--ff-body);color:var(--text);background:#fff;line-height:1.6;-webkit-font-smoothing:antialiased;}
+a{color:var(--green);text-decoration:none;}
+a:hover{text-decoration:underline;}
+
+nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--border);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:56px;}
+.nav-logo{font-family:var(--ff-body);font-weight:600;font-size:14px;color:var(--text);letter-spacing:0.02em;}
+.nav-logo span{color:var(--green);}
+.nav-links{display:flex;align-items:center;gap:2rem;list-style:none;}
+.nav-links a{font-size:13px;color:var(--text-muted);font-weight:400;transition:color 0.2s;}
+.nav-links a:hover{color:var(--green);text-decoration:none;}
+.nav-links a.active{color:var(--green);font-weight:500;}
+.nav-cta{font-size:13px;font-weight:500;color:#fff !important;background:var(--green);padding:7px 16px;border-radius:6px;transition:opacity 0.2s;}
+.nav-cta:hover{opacity:0.85;text-decoration:none !important;}
+
+.hero{background:var(--green);padding:80px 2rem 72px;text-align:center;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;top:-60px;right:-60px;width:280px;height:280px;border-radius:50%;background:rgba(255,255,255,0.04);}
+.hero::after{content:'';position:absolute;bottom:-80px;left:-40px;width:320px;height:320px;border-radius:50%;background:rgba(255,255,255,0.03);}
+.hero-eyebrow{font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.6);margin-bottom:16px;}
+.hero h1{font-family:var(--ff-display);font-size:clamp(2.4rem,5vw,3.6rem);font-weight:400;color:#fff;line-height:1.15;margin-bottom:16px;}
+.hero h1 em{font-style:italic;color:rgba(255,255,255,0.75);}
+.hero-sub{font-size:17px;color:rgba(255,255,255,0.7);max-width:520px;margin:0 auto 40px;line-height:1.6;}
+.hero-stats{display:flex;justify-content:center;max-width:560px;margin:0 auto;}
+.hero-stat{flex:1;padding:20px 16px;border-right:1px solid rgba(255,255,255,0.15);}
+.hero-stat:last-child{border-right:none;}
+.hero-stat-num{font-family:var(--ff-display);font-size:2.4rem;color:#fff;line-height:1;margin-bottom:4px;}
+.hero-stat-label{font-size:11px;color:rgba(255,255,255,0.55);letter-spacing:0.04em;text-transform:uppercase;}
+.updated-badge{display:inline-block;margin-top:32px;font-size:11px;color:rgba(255,255,255,0.45);border:1px solid rgba(255,255,255,0.15);padding:4px 12px;border-radius:20px;}
+
+.section{padding:72px 2rem;max-width:960px;margin:0 auto;}
+.section-eyebrow{font-size:11px;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--green);margin-bottom:10px;}
+.section-title{font-family:var(--ff-display);font-size:clamp(1.6rem,3vw,2.2rem);font-weight:400;line-height:1.2;margin-bottom:8px;}
+.section-title em{font-style:italic;color:var(--green);}
+.section-sub{font-size:16px;color:var(--text-muted);max-width:560px;margin-bottom:40px;line-height:1.6;}
+hr.divider{border:none;border-top:1px solid var(--border);}
+
+.card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:24px;}
+.card-green{background:var(--green-light);border:1px solid var(--green-border);border-radius:var(--radius);padding:24px;}
+.card-title{font-size:12px;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-muted);margin-bottom:16px;}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+@media(max-width:680px){.grid-2,.grid-3{grid-template-columns:1fr;}}
+
+.ba-pair{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
+.ba-box{border-radius:var(--radius-sm);padding:14px 16px;}
+.ba-pre{background:var(--surface);border:1px solid var(--border);}
+.ba-post{background:var(--green-light);border:1px solid var(--green-border);}
+.ba-tag{font-size:10px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:6px;}
+.ba-pre .ba-tag{color:var(--text-faint);}
+.ba-post .ba-tag{color:var(--green-muted);}
+.ba-score{font-family:var(--ff-display);font-size:2rem;line-height:1;}
+.ba-pre .ba-score{color:var(--text-muted);}
+.ba-post .ba-score{color:var(--green);}
+.ba-desc{font-size:11px;margin-top:3px;}
+.ba-pre .ba-desc{color:var(--text-faint);}
+.ba-post .ba-desc{color:var(--green-muted);}
+.ba-delta{font-size:12px;font-weight:500;color:var(--green);text-align:center;padding:8px;background:var(--green-light);border-radius:6px;}
+
+.prog-wrap{margin-bottom:12px;}
+.prog-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:5px;}
+.prog-lbl{font-size:13px;color:var(--text-muted);}
+.prog-val{font-size:13px;font-weight:500;color:var(--green);}
+.prog-track{height:6px;background:var(--surface-alt);border-radius:3px;overflow:hidden;}
+.prog-fill{height:100%;background:var(--green);border-radius:3px;transition:width 1.2s cubic-bezier(0.4,0,0.2,1);width:0;}
+
+.insight-row{display:flex;align-items:flex-start;gap:16px;padding:14px 0;border-bottom:1px solid var(--border);}
+.insight-row:last-child{border-bottom:none;padding-bottom:0;}
+.insight-pct{font-family:var(--ff-display);font-size:1.8rem;color:var(--green);min-width:60px;line-height:1.1;}
+.insight-text{font-size:14px;color:var(--text-muted);line-height:1.5;padding-top:3px;}
+
+.dist-row{display:flex;align-items:center;gap:10px;margin-bottom:7px;}
+.dist-label{font-size:11px;color:var(--text-faint);width:14px;text-align:right;flex-shrink:0;}
+.dist-track{flex:1;height:12px;background:var(--surface-alt);border-radius:3px;overflow:hidden;}
+.dist-fill{height:100%;border-radius:3px;transition:width 1.2s cubic-bezier(0.4,0,0.2,1);width:0;}
+.dist-dark{background:var(--green);}
+.dist-mid{background:var(--green-mid);}
+.dist-light{background:#9FE1CB;}
+.dist-count{font-size:11px;color:var(--text-faint);width:22px;text-align:right;flex-shrink:0;}
+.dist-group-title{font-size:11px;color:var(--text-faint);margin-bottom:8px;}
+
+.score-row{display:flex;align-items:center;gap:12px;margin-bottom:9px;}
+.score-label{font-size:12px;color:var(--text-muted);flex:1;}
+.score-track{flex:2;background:var(--surface-alt);height:7px;border-radius:4px;overflow:hidden;}
+.score-fill{height:100%;border-radius:4px;transition:width 1.2s ease;width:0;}
+.score-count{font-size:12px;font-weight:500;color:var(--text-muted);width:26px;text-align:right;}
+.score-meta{font-size:11px;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-faint);margin:0 0 10px;}
+
+.quote-block{border-left:2px solid var(--green-border);padding:12px 16px;margin-bottom:12px;background:var(--green-light);border-radius:0 8px 8px 0;}
+.quote-block:last-child{margin-bottom:0;}
+.quote-text{font-size:13px;color:var(--green-muted);line-height:1.65;font-style:italic;}
+.quote-attr{font-size:11px;color:#006b30;margin-top:6px;}
+
+.chip-row{display:flex;flex-wrap:wrap;gap:6px;}
+.chip{font-size:11px;padding:4px 11px;border-radius:20px;background:var(--surface);color:var(--text-muted);border:1px solid var(--border);}
+.chip-em{background:var(--green-light);border-color:var(--green-border);color:var(--green-muted);font-weight:500;}
+
+.mot-track{height:18px;background:var(--surface-alt);border-radius:4px;overflow:hidden;display:flex;}
+.mot-a{background:var(--green);transition:width 1.2s ease;width:0;}
+.mot-b{background:#9FE1CB;transition:width 1.2s ease;width:0;}
+.mot-labels{display:flex;justify-content:space-between;margin-bottom:8px;}
+.mot-label-a{font-size:12px;font-weight:500;color:var(--green);}
+.mot-label-b{font-size:12px;color:var(--green-muted);}
+
+footer{background:var(--surface);border-top:1px solid var(--border);padding:32px 2rem;text-align:center;}
+.footer-logo{font-size:13px;font-weight:600;color:var(--text);margin-bottom:6px;}
+.footer-logo span{color:var(--green);}
+.footer-meta{font-size:12px;color:var(--text-faint);}
+
+.animate{opacity:0;transform:translateY(16px);transition:opacity 0.55s ease,transform 0.55s ease;}
+.animate.visible{opacity:1;transform:translateY(0);}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">[<span>StackAspire</span>]</div>
+  <ul class="nav-links">
+    <li><a href="https://julianadossantos-lnd.github.io/stackaspire/#about">About</a></li>
+    <li><a href="https://julianadossantos-lnd.github.io/stackaspire/#curriculum">Curriculum</a></li>
+    <li><a href="https://julianadossantos-lnd.github.io/stackaspire/#facilitator">Facilitator</a></li>
+    <li><a href="impact.html" class="active">Impact</a></li>
+    <li><a href="https://julianadossantos-lnd.github.io/stackaspire/#curriculum" class="nav-cta">View Courses</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <p class="hero-eyebrow">Program Results</p>
+  <h1>Outcomes that <em>speak for themselves.</em></h1>
+  <p class="hero-sub">Measuring the impact of StackAspire across 101 participants, 3 cohort waves, and 6 weeks of intentional leadership development.</p>
+  <div class="hero-stats">
+    <div class="hero-stat"><div class="hero-stat-num">101</div><div class="hero-stat-label">Participants</div></div>
+    <div class="hero-stat"><div class="hero-stat-num">4.7</div><div class="hero-stat-label">NPS / 5</div></div>
+    <div class="hero-stat"><div class="hero-stat-num">4.6</div><div class="hero-stat-label">VTS / 5</div></div>
+    <div class="hero-stat"><div class="hero-stat-num">+0.81</div><div class="hero-stat-label">Clarity gain</div></div>
+  </div>
+  <div class="updated-badge">Last updated: June 2026</div>
+</section>
+
+<hr class="divider">
+
+<section class="section animate">
+  <p class="section-eyebrow">Survey outcomes</p>
+  <h2 class="section-title">Before &amp; <em>after.</em></h2>
+  <p class="section-sub">Pre and post-program survey scores across two key dimensions — measured at enrollment and at completion.</p>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">Leadership readiness clarity</div>
+      <div class="ba-pair">
+        <div class="ba-box ba-pre"><div class="ba-tag">Pre-program</div><div class="ba-score">3.75</div><div class="ba-desc">avg / 5</div></div>
+        <div class="ba-box ba-post"><div class="ba-tag">Post-program</div><div class="ba-score">4.56</div><div class="ba-desc">avg / 5</div></div>
+      </div>
+      <div class="ba-delta">↑ +0.81 gain &nbsp;·&nbsp; 98% rated 4 or 5 post-program</div>
+    </div>
+    <div class="card">
+      <div class="card-title">Confidence in core people skills</div>
+      <div class="ba-pair">
+        <div class="ba-box ba-pre"><div class="ba-tag">Pre-program</div><div class="ba-score">3.86</div><div class="ba-desc">avg / 5</div></div>
+        <div class="ba-box ba-post"><div class="ba-tag">Post-program</div><div class="ba-score">4.44</div><div class="ba-desc">avg / 5</div></div>
+      </div>
+      <div class="ba-delta">↑ +0.58 gain &nbsp;·&nbsp; 100% rated 4 or 5 post-program</div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<section class="section animate">
+  <p class="section-eyebrow">End of program survey</p>
+  <h2 class="section-title">What participants <em>took away.</em></h2>
+  <p class="section-sub">Based on 50 end-of-program survey responses — measuring learning, growth, and confidence across six dimensions.</p>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">Key outcome metrics</div>
+      <div class="insight-row"><div class="insight-pct">98%</div><div class="insight-text">have clarity on whether people leadership is the right next step for them</div></div>
+      <div class="insight-row"><div class="insight-pct">100%</div><div class="insight-text">feel confident handling core people leadership responsibilities</div></div>
+      <div class="insight-row"><div class="insight-pct">97%</div><div class="insight-text">confident in applying the skills gained through Action Labs</div></div>
+      <div class="insight-row"><div class="insight-pct">92%</div><div class="insight-text">say StackAspire developed skills relevant to their career at StackAdapt</div></div>
+      <div class="insight-row"><div class="insight-pct">90%</div><div class="insight-text">better understand what good management looks like at StackAdapt</div></div>
+      <div class="insight-row"><div class="insight-pct">88%</div><div class="insight-text">more aware of how they can own their professional growth</div></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Score distributions — post program</div>
+      <div style="margin-bottom:18px;">
+        <div class="dist-group-title">Leadership readiness clarity (avg 4.56)</div>
+        <div class="dist-row"><div class="dist-label">5</div><div class="dist-track"><div class="dist-fill dist-dark" data-w="58"></div></div><div class="dist-count">29</div></div>
+        <div class="dist-row"><div class="dist-label">4</div><div class="dist-track"><div class="dist-fill dist-mid" data-w="40"></div></div><div class="dist-count">20</div></div>
+        <div class="dist-row"><div class="dist-label">3</div><div class="dist-track"><div class="dist-fill dist-light" data-w="2"></div></div><div class="dist-count">1</div></div>
+      </div>
+      <div style="margin-bottom:18px;">
+        <div class="dist-group-title">Confidence in core people skills (avg 4.44)</div>
+        <div class="dist-row"><div class="dist-label">5</div><div class="dist-track"><div class="dist-fill dist-dark" data-w="44"></div></div><div class="dist-count">22</div></div>
+        <div class="dist-row"><div class="dist-label">4</div><div class="dist-track"><div class="dist-fill dist-mid" data-w="56"></div></div><div class="dist-count">28</div></div>
+      </div>
+      <div>
+        <div class="dist-group-title">Owns professional growth (avg 4.38)</div>
+        <div class="dist-row"><div class="dist-label">5</div><div class="dist-track"><div class="dist-fill dist-dark" data-w="46"></div></div><div class="dist-count">23</div></div>
+        <div class="dist-row"><div class="dist-label">4</div><div class="dist-track"><div class="dist-fill dist-mid" data-w="46"></div></div><div class="dist-count">23</div></div>
+        <div class="dist-row"><div class="dist-label">3</div><div class="dist-track"><div class="dist-fill dist-light" data-w="8"></div></div><div class="dist-count">4</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<section class="section animate">
+  <p class="section-eyebrow">Program satisfaction</p>
+  <h2 class="section-title">Worth the <em>investment.</em></h2>
+  <p class="section-sub">Participants rated both the likelihood of recommending StackAspire and the value delivered relative to time spent.</p>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">Likelihood to recommend to other ICs</div>
+      <div class="score-meta">NPS avg 4.65 / 5 &nbsp;·&nbsp; n = 40</div>
+      <div class="score-row"><div class="score-label">5 – Very likely</div><div class="score-track"><div class="score-fill" style="background:var(--green)" data-w="72"></div></div><div class="score-count">29</div></div>
+      <div class="score-row"><div class="score-label">4 – Likely</div><div class="score-track"><div class="score-fill" style="background:var(--green-mid)" data-w="22"></div></div><div class="score-count">9</div></div>
+      <div class="score-row"><div class="score-label">3 – Neutral</div><div class="score-track"><div class="score-fill" style="background:#9FE1CB" data-w="2"></div></div><div class="score-count">1</div></div>
+      <div class="score-row"><div class="score-label">2 – Unlikely</div><div class="score-track"><div class="score-fill" style="background:#E1F5EE" data-w="2"></div></div><div class="score-count">1</div></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Value relative to time invested</div>
+      <div class="score-meta">VTS avg 4.63 / 5 &nbsp;·&nbsp; n = 40</div>
+      <div class="score-row"><div class="score-label">5 – Extremely valuable</div><div class="score-track"><div class="score-fill" style="background:var(--green)" data-w="70"></div></div><div class="score-count">28</div></div>
+      <div class="score-row"><div class="score-label">4 – Moderately valuable</div><div class="score-track"><div class="score-fill" style="background:var(--green-mid)" data-w="25"></div></div><div class="score-count">10</div></div>
+      <div class="score-row"><div class="score-label">3 – Neutral</div><div class="score-track"><div class="score-fill" style="background:#9FE1CB" data-w="2"></div></div><div class="score-count">1</div></div>
+      <div class="score-row"><div class="score-label">2 – Slightly valuable</div><div class="score-track"><div class="score-fill" style="background:#E1F5EE" data-w="2"></div></div><div class="score-count">1</div></div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<section class="section animate">
+  <p class="section-eyebrow">Learning progress</p>
+  <h2 class="section-title">Module completion <em>rates.</em></h2>
+  <p class="section-sub">Completion across all 6 weeks. Weeks 5–6 reflect lower rates due to the Spring cohort still actively working through the program.</p>
+  <div class="card">
+    <div class="prog-wrap"><div class="prog-row"><span class="prog-lbl">Welcome to StackAspire</span><span class="prog-val">93%</span></div><div class="prog-track"><div class="prog-fill" data-w="93"></div></div></div>
+    <div class="prog-wrap"><div class="prog-row"><span class="prog-lbl">Week 1 — Leading with intentionality</span><span class="prog-val">90%</span></div><div class="prog-track"><div class="prog-fill" data-w="90"></div></div></div>
+    <div class="prog-wrap"><div class="prog-row"><span class="prog-lbl">Week 2 — EQ, building trust &amp; connection</span><span class="prog-val">84%</span></div><div class="prog-track"><div class="prog-fill" data-w="84"></div></div></div>
+    <div class="prog-wrap"><div class="prog-row"><span class="prog-lbl">Week 3 — Feedback &amp; difficult conversations</span><span class="prog-val">80%</span></div><div class="prog-track"><div class="prog-fill" data-w="80"></div></div></div>
+    <div class="prog-wrap"><div class="prog-row"><span class="prog-lbl">Week 4 — Delegation &amp; time leverage</span><span class="prog-val">74%</span></div><div class="prog-track"><div class="prog-fill" data-w="74"></div></div></div>
+    <div class="prog-wrap"><div class="prog-row"><span class="prog-lbl">Week 5 — Growth mindset &amp; accountability</span><span class="prog-val">66%</span></div><div class="prog-track"><div class="prog-fill" data-w="66"></div></div></div>
+    <div class="prog-wrap"><div class="prog-row"><span class="prog-lbl">Week 6 — Decision-making under ambiguity</span><span class="prog-val">54%</span></div><div class="prog-track"><div class="prog-fill" data-w="54"></div></div></div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<section class="section animate">
+  <p class="section-eyebrow">Participant voices</p>
+  <h2 class="section-title">In their own <em>words.</em></h2>
+  <p class="section-sub">Selected responses from the end-of-program open feedback question.</p>
+  <div class="grid-2">
+    <div>
+      <div class="quote-block"><div class="quote-text">"I genuinely believe nothing should be changed — everything was very detailed, aspiring, and painted the most realistic picture of what people management looks like for aspiring leaders."</div><div class="quote-attr">— Allen Ortilla</div></div>
+      <div class="quote-block"><div class="quote-text">"The process is extremely valuable. For those who haven't managed people before, having more time to practice coaching conversations would be super helpful."</div><div class="quote-attr">— Alex Rhead</div></div>
+      <div class="quote-block"><div class="quote-text">"I got a lot of value from when we had the speaker and Q&amp;A session. More people manager involvement would make it even better."</div><div class="quote-attr">— Josh Herenberg</div></div>
+    </div>
+    <div>
+      <div class="quote-block"><div class="quote-text">"Please increase the time for the breakout rooms to allow for more practice with peers running through the mock scenarios."</div><div class="quote-attr">— Alex Lin</div></div>
+      <div class="quote-block"><div class="quote-text">"I would love a list of resources related to the content — books, YouTube links — so I could revisit them to further my development and growth."</div><div class="quote-attr">— Annabelle Loudon</div></div>
+      <div class="card-green">
+        <div class="card-title" style="color:var(--green-muted);">Top improvement suggestions</div>
+        <div class="chip-row">
+          <span class="chip chip-em">More guest speakers</span>
+          <span class="chip chip-em">Longer Action Labs</span>
+          <span class="chip">Rotate breakout partners</span>
+          <span class="chip">SA-specific content</span>
+          <span class="chip">Record live sessions</span>
+          <span class="chip">Resource leave-behinds</span>
+          <span class="chip">In-person option</span>
+          <span class="chip">Mentorship follow-on</span>
+          <span class="chip">Dept-specific tracks</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<section class="section animate">
+  <p class="section-eyebrow">Who is StackAspire for</p>
+  <h2 class="section-title">Participant <em>motivations.</em></h2>
+  <p class="section-sub">What brought people into the program — based on 77 pre-program survey responses.</p>
+  <div class="card" style="max-width:560px;">
+    <div class="mot-labels">
+      <span class="mot-label-a">A) Passion for coaching &amp; developing others — 60%</span>
+      <span class="mot-label-b">B) Advancing career — 40%</span>
+    </div>
+    <div class="mot-track">
+      <div class="mot-a" data-w="60"></div>
+      <div class="mot-b" data-w="40"></div>
+    </div>
+    <p style="font-size:12px;color:var(--text-faint);margin-top:10px;">A healthy split — 60% intrinsically motivated to develop others, 40% career-driven.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">[<span>StackAspire</span>] · StackAdapt</div>
+  <div class="footer-meta">Leadership Development Program · Facilitated by Juliana dos Santos · Impact data updated June 2026</div>
+</footer>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('.animate').forEach(el => observer.observe(el));
+
+function animateBars(container) {
+  container.querySelectorAll('[data-w]').forEach(el => {
+    el.style.width = el.dataset.w + '%';
+  });
+}
+const barObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      setTimeout(() => animateBars(e.target), 200);
+      barObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.15 });
+document.querySelectorAll('.section').forEach(s => barObserver.observe(s));
+</script>
+</body>
+</html>
