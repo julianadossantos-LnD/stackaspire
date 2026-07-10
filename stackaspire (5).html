@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StackAspire — Leadership Development Program</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Source+Sans+Pro:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green-900: #0d2b1f;
+    --green-800: #1a3d2b;
+    --green-700: #1e5438;
+    --green-600: #1f6b44;
+    --green-500: #187a4a;
+    --green-400: #2ea86a;
+    --green-300: #5dc993;
+    --green-100: #d4f0e3;
+    --green-50:  #eef9f4;
+    --teal-accent: #3fc9a0;
+    --cream: #f9f6f1;
+    --white: #ffffff;
+    --gray-900: #1a1a1a;
+    --gray-700: #3d3d3d;
+    --gray-500: #6b6b6b;
+    --gray-300: #c4c4c4;
+    --gray-100: #f0f0f0;
+  }
+
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Source Sans 3', 'Source Sans Pro', sans-serif;
+    color: var(--gray-900);
+    background: var(--white);
+    overflow-x: hidden;
+  }
+  a { color: inherit; text-decoration: none; }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 3rem; height: 64px;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+    transition: box-shadow 0.3s;
+  }
+  nav.scrolled { box-shadow: 0 2px 24px rgba(0,0,0,0.08); }
+  .nav-logo {
+    font-weight: 500; font-size: 1rem; letter-spacing: 0.03em;
+    color: var(--gray-900);
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .nav-logo span.bracket { color: var(--green-600); font-weight: 300; }
+  .nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.875rem; color: var(--gray-700);
+    font-weight: 400; transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--green-600); }
+  .nav-links a.nav-impact {
+    color: var(--green-600); font-weight: 500;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh; background: var(--green-900);
+    display: grid; grid-template-columns: 1fr 1fr;
+    align-items: center; position: relative;
+    overflow: hidden; padding-top: 64px;
+  }
+  .hero::before {
+    content: ''; position: absolute; top: -200px; right: -200px;
+    width: 700px; height: 700px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(62,201,160,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero::after {
+    content: ''; position: absolute; bottom: -150px; left: -100px;
+    width: 500px; height: 500px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(31,107,68,0.3) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-text { padding: 5rem 3rem 5rem 7vw; position: relative; z-index: 1; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: rgba(63,201,160,0.12); border: 1px solid rgba(63,201,160,0.3);
+    color: var(--teal-accent); font-size: 0.8rem; font-weight: 500;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 0.35rem 0.875rem; border-radius: 20px; margin-bottom: 1.75rem;
+  }
+  .hero-badge::before {
+    content: ''; width: 6px; height: 6px;
+    border-radius: 50%; background: var(--teal-accent);
+  }
+  h1 {
+    font-size: clamp(2.75rem, 5vw, 4.25rem);
+    line-height: 1.1; color: var(--white); margin-bottom: 1.5rem;
+  }
+  h1 em { font-style: italic; color: var(--teal-accent); }
+  .hero-sub {
+    font-size: 1.05rem; color: rgba(255,255,255,0.65);
+    line-height: 1.7; max-width: 480px; margin-bottom: 2.5rem; font-weight: 300;
+  }
+  .hero-actions { display: flex; align-items: center; gap: 1.25rem; }
+  .btn-primary {
+    background: var(--teal-accent); color: var(--green-900);
+    font-weight: 500; font-size: 0.95rem; padding: 0.8rem 2rem;
+    border-radius: 8px; border: none; cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s; display: inline-block;
+  }
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(63,201,160,0.35);
+  }
+  .btn-ghost {
+    color: rgba(255,255,255,0.7); font-size: 0.9rem;
+    display: flex; align-items: center; gap: 0.4rem; transition: color 0.2s;
+  }
+  .btn-ghost:hover { color: var(--white); }
+  .btn-ghost svg { transition: transform 0.2s; }
+  .btn-ghost:hover svg { transform: translateX(3px); }
+  .hero-stats {
+    display: flex; gap: 2.5rem;
+    margin-top: 3.5rem; padding-top: 2.5rem;
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+  .stat-num { font-size: 2rem; color: var(--white); display: block; }
+  .stat-label {
+    font-size: 0.8rem; color: rgba(255,255,255,0.45);
+    text-transform: uppercase; letter-spacing: 0.06em;
+  }
+  .updated-badge {
+    display: inline-block; margin-top: 2rem;
+    color: rgba(255,255,255,0.4); border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 20px; padding: 0.35rem 0.875rem; font-size: 0.75rem;
+  }
+  .hero-visual {
+    position: relative; display: flex;
+    align-items: center; justify-content: center;
+    padding: 4rem 5vw 4rem 2rem; z-index: 1;
+  }
+  .hero-card-stack { position: relative; width: 360px; height: 420px; }
+  .hero-card {
+    position: absolute; background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.12); border-radius: 16px;
+    padding: 1.75rem; backdrop-filter: blur(8px);
+  }
+  .hero-card.card-back {
+    width: 310px; height: 360px; top: 42px; left: 45px;
+    transform: rotate(4deg); background: rgba(31,107,68,0.35);
+    border-color: rgba(63,201,160,0.15);
+  }
+  .hero-card.card-mid {
+    width: 330px; height: 375px; top: 22px; left: 22px;
+    transform: rotate(-2deg); background: rgba(255,255,255,0.04);
+    border-color: rgba(255,255,255,0.09);
+  }
+  .hero-card.card-front {
+    width: 340px; min-height: 390px; top: 0; left: 0;
+    background: rgba(255,255,255,0.07); border-color: rgba(63,201,160,0.25);
+  }
+  .hero-card-label {
+    font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em;
+    color: var(--teal-accent); margin-bottom: 1rem; font-weight: 500;
+  }
+  .hero-card-title {
+    font-size: 1.3rem; color: var(--white); margin-bottom: 1.25rem; line-height: 1.3;
+  }
+  /* program card weeks */
+  .hero-card-weeks { display: flex; flex-direction: column; gap: 0.6rem; margin-top: 1rem; }
+  .hero-card-week-row {
+    display: flex; align-items: center; gap: 0.75rem;
+    font-size: 0.82rem; color: rgba(255,255,255,0.55);
+  }
+  .week-dot {
+    width: 20px; height: 20px; border-radius: 50%;
+    background: rgba(63,201,160,0.15); border: 1px solid rgba(63,201,160,0.3);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.65rem; color: var(--teal-accent); flex-shrink: 0; font-weight: 500;
+  }
+  /* impact card metrics */
+  .hero-card-metrics { display: flex; flex-direction: column; gap: 0; }
+  .hero-card-metric {
+    display: grid; grid-template-columns: 72px 1fr; gap: 0.75rem;
+    align-items: baseline; padding: 0.75rem 0;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+  .hero-card-metric strong { color: var(--white); font-size: 1.4rem; font-weight: 500; }
+  .hero-card-metric span { color: rgba(255,255,255,0.55); font-size: 0.83rem; line-height: 1.45; }
+
+  /* ── INTRO STRIP ── */
+  .intro-strip {
+    background: var(--green-700); padding: 1.25rem 7vw;
+    display: flex; align-items: center; gap: 3rem; overflow: hidden;
+  }
+  .intro-strip-item {
+    display: flex; align-items: center; gap: 0.75rem;
+    color: rgba(255,255,255,0.8); font-size: 0.875rem;
+    white-space: nowrap; font-weight: 400;
+  }
+  .intro-strip-icon {
+    width: 30px; height: 30px; border-radius: 50%;
+    background: rgba(255,255,255,0.1);
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .intro-strip-icon svg { width: 14px; height: 14px; stroke: var(--teal-accent); fill: none; }
+  .intro-strip-sep { width: 1px; height: 24px; background: rgba(255,255,255,0.15); flex-shrink: 0; }
+  /* impact strip separator line */
+  .intro-strip.impact-strip { border-top: 1px solid rgba(255,255,255,0.08); }
+
+  /* ── SHARED SECTION ── */
+  section { padding: 6rem 7vw; }
+  .section-eyebrow {
+    font-size: 0.75rem; text-transform: uppercase;
+    letter-spacing: 0.12em; color: var(--green-600);
+    font-weight: 500; margin-bottom: 0.75rem;
+  }
+  h2 {
+    font-size: clamp(2rem, 3.5vw, 2.75rem);
+    line-height: 1.2; color: var(--gray-900); margin-bottom: 1rem;
+  }
+  h2 em { font-style: italic; color: var(--green-600); }
+  .section-intro {
+    font-size: 1.05rem; color: var(--gray-500);
+    line-height: 1.75; max-width: 640px; font-weight: 300;
+  }
+  .section-header {
+    display: flex; align-items: flex-end;
+    justify-content: space-between; gap: 2rem; margin-bottom: 3rem;
+  }
+  .section-header .section-intro { max-width: 360px; font-size: 0.95rem; text-align: right; }
+
+  /* ── ABOUT ── */
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+  .about-text h2 { margin-bottom: 1.25rem; }
+  .about-text p { font-size: 1rem; color: var(--gray-500); line-height: 1.8; margin-bottom: 1.25rem; font-weight: 300; }
+  .about-text p strong { color: var(--gray-700); font-weight: 500; }
+  .about-values { display: flex; flex-direction: column; gap: 1rem; margin-top: 2.5rem; }
+  .value-row {
+    display: flex; align-items: flex-start; gap: 1rem; padding: 1.25rem;
+    border-radius: 12px; border: 1px solid var(--gray-100);
+    background: var(--cream); transition: border-color 0.2s;
+  }
+  .value-row:hover { border-color: var(--green-300); }
+  .value-icon {
+    width: 40px; height: 40px; border-radius: 10px; background: var(--green-50);
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .value-icon svg { width: 18px; height: 18px; stroke: var(--green-600); stroke-width: 1.8; fill: none; }
+  .value-text h4 { font-size: 0.92rem; font-weight: 500; color: var(--gray-900); margin-bottom: 0.2rem; }
+  .value-text p { font-size: 0.83rem; color: var(--gray-500); line-height: 1.5; margin: 0; font-weight: 300; }
+  .about-visual { position: relative; display: flex; align-items: center; justify-content: center; }
+  .about-ring {
+    width: 380px; height: 380px; border-radius: 50%;
+    border: 1.5px dashed var(--green-300);
+    display: flex; align-items: center; justify-content: center;
+    position: relative; animation: slowSpin 40s linear infinite;
+  }
+  @keyframes slowSpin { to { transform: rotate(360deg); } }
+  .about-ring-inner {
+    width: 260px; height: 260px; border-radius: 50%;
+    background: var(--green-900);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center; text-align: center;
+    animation: slowSpin 40s linear infinite reverse;
+  }
+  .ring-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--teal-accent); margin-bottom: 0.25rem; font-weight: 500; }
+  .ring-title { color: var(--white); font-size: 1.4rem; line-height: 1.3; }
+  .ring-dot { position: absolute; width: 12px; height: 12px; border-radius: 50%; background: var(--teal-accent); }
+  .rd1 { top: -6px; left: 50%; transform: translateX(-50%); }
+  .rd2 { bottom: -6px; left: 50%; transform: translateX(-50%); background: var(--green-400); }
+  .rd3 { left: -6px; top: 50%; transform: translateY(-50%); background: var(--green-300); }
+  .rd4 { right: -6px; top: 50%; transform: translateY(-50%); background: rgba(63,201,160,0.5); }
+
+  /* ── CURRICULUM ── */
+  #curriculum { background: var(--cream); }
+  .curriculum-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 3rem; }
+  .weeks-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .week-card {
+    background: var(--white); border-radius: 16px;
+    border: 1px solid rgba(0,0,0,0.06); overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+    cursor: pointer; position: relative;
+  }
+  .week-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 48px rgba(31,107,68,0.12);
+    border-color: var(--green-300);
+  }
+  .week-card-header {
+    background: var(--green-900); padding: 1.75rem 1.5rem;
+    position: relative; overflow: hidden; min-height: 120px;
+    display: flex; flex-direction: column; justify-content: flex-end;
+  }
+  .week-card-header::before {
+    content: ''; position: absolute; top: -40px; right: -40px;
+    width: 140px; height: 140px; border-radius: 50%;
+    background: rgba(63,201,160,0.08);
+  }
+  .week-num { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.12em; color: rgba(255,255,255,0.35); font-weight: 500; margin-bottom: 0.4rem; position: relative; }
+  .week-title { font-size: 1.25rem; color: var(--white); line-height: 1.25; position: relative; }
+  .week-accent { position: absolute; top: 0; right: 0; bottom: 0; width: 4px; background: var(--teal-accent); }
+  .week-card-body { padding: 1.25rem 1.5rem; }
+  .week-desc { font-size: 0.875rem; color: var(--gray-500); line-height: 1.65; margin-bottom: 1.25rem; font-weight: 300; }
+  .week-topics { display: flex; flex-direction: column; gap: 0.4rem; }
+  .topic-item { display: flex; align-items: center; gap: 0.6rem; font-size: 0.8rem; color: var(--gray-700); }
+  .topic-item::before { content: ''; width: 16px; height: 1px; background: var(--green-400); flex-shrink: 0; }
+  .week-footer { padding: 0 1.5rem 1.25rem; display: flex; align-items: center; justify-content: space-between; }
+  .week-tag { font-size: 0.72rem; color: var(--green-600); background: var(--green-50); padding: 0.25rem 0.6rem; border-radius: 20px; font-weight: 500; border: 1px solid var(--green-100); }
+  .week-arrow { width: 28px; height: 28px; border-radius: 50%; border: 1px solid var(--gray-100); display: flex; align-items: center; justify-content: center; transition: background 0.2s, border-color 0.2s; }
+  .week-card:hover .week-arrow { background: var(--green-600); border-color: var(--green-600); }
+  .week-arrow svg { width: 12px; height: 12px; stroke: var(--gray-500); fill: none; transition: stroke 0.2s; }
+  .week-card:hover .week-arrow svg { stroke: var(--white); }
+
+  /* ── APPROACH (dark) ── */
+  #approach { background: var(--green-900); }
+  #approach .section-eyebrow { color: var(--teal-accent); }
+  #approach h2 { color: var(--white); }
+  #approach .section-intro { color: rgba(255,255,255,0.5); margin-bottom: 3.5rem; }
+  .approach-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+  .approach-card {
+    border: 1px solid rgba(255,255,255,0.08); border-radius: 16px;
+    padding: 2rem 1.5rem; background: rgba(255,255,255,0.04);
+    transition: border-color 0.3s, background 0.3s;
+  }
+  .approach-card:hover { border-color: rgba(63,201,160,0.3); background: rgba(255,255,255,0.07); }
+  .approach-icon { width: 44px; height: 44px; border-radius: 12px; background: rgba(63,201,160,0.12); display: flex; align-items: center; justify-content: center; margin-bottom: 1.25rem; }
+  .approach-icon svg { width: 20px; height: 20px; stroke: var(--teal-accent); stroke-width: 1.8; fill: none; }
+  .approach-card h4 { font-size: 1rem; font-weight: 500; color: var(--white); margin-bottom: 0.6rem; line-height: 1.3; }
+  .approach-card p { font-size: 0.855rem; color: rgba(255,255,255,0.45); line-height: 1.65; font-weight: 300; }
+
+  /* ── FACILITATOR ── */
+  #facilitator { background: var(--white); display: flex; gap: 5rem; align-items: center; }
+  .facilitator-left { flex: 0 0 auto; text-align: center; }
+  .facilitator-avatar { width: 180px; height: 180px; margin: 0 auto 1.25rem; border-radius: 50%; overflow: hidden; border: 4px solid var(--green-100); background: transparent; padding: 0; }
+  .facilitator-avatar img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; display: block; }
+  .facilitator-name { font-size: 1.4rem; color: var(--gray-900); margin-bottom: 0.25rem; }
+  .facilitator-role { font-size: 0.85rem; color: var(--green-600); font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; }
+  .facilitator-right { flex: 1; }
+  .facilitator-right h2 { margin-bottom: 1.25rem; }
+  .facilitator-right p { font-size: 1rem; color: var(--gray-500); line-height: 1.8; margin-bottom: 1rem; font-weight: 300; }
+  .facilitator-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
+  .ftag { font-size: 0.82rem; color: var(--gray-700); background: var(--cream); border: 1px solid var(--gray-100); padding: 0.35rem 0.875rem; border-radius: 20px; font-weight: 400; }
+
+  /* ── IMPACT HERO ── */
+  #impact { scroll-margin-top: 0; }
+
+  /* ── IMPACT CARDS — shared pattern with teal accent stripe ── */
+  .comparison-card,
+  .metric-card {
+    background: var(--white); border-radius: 16px;
+    border: 1px solid rgba(0,0,0,0.06); overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+  }
+  .comparison-card:hover,
+  .metric-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 48px rgba(31,107,68,0.12);
+    border-color: var(--green-300);
+  }
+  .comparison-head,
+  .metric-head {
+    background: var(--green-900); min-height: 116px;
+    padding: 1.75rem 1.5rem;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    position: relative; overflow: hidden;
+  }
+  .comparison-head::before,
+  .metric-head::before {
+    content: ''; position: absolute; top: -40px; right: -40px;
+    width: 140px; height: 140px; border-radius: 50%;
+    background: rgba(63,201,160,0.08);
+  }
+  /* teal accent stripe — matching week-card pattern */
+  .comparison-head::after,
+  .metric-head::after {
+    content: ''; position: absolute;
+    top: 0; right: 0; bottom: 0; width: 4px;
+    background: var(--teal-accent);
+  }
+  .comparison-kicker,
+  .metric-kicker {
+    font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.12em;
+    color: rgba(255,255,255,0.35); font-weight: 500;
+    margin-bottom: 0.4rem; position: relative;
+  }
+  .comparison-title,
+  .metric-title { font-size: 1.25rem; color: var(--white); line-height: 1.25; position: relative; }
+  .comparison-body,
+  .metric-body { padding: 1.5rem; }
+  .before-after { display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; margin-bottom: 1rem; }
+  .score-box { border-radius: 12px; padding: 1rem; border: 1px solid var(--gray-100); background: var(--cream); }
+  .score-box.after { background: var(--green-50); border-color: var(--green-100); }
+  .score-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gray-500); margin-bottom: 0.45rem; font-weight: 500; }
+  .score-box.after .score-label { color: var(--green-600); }
+  .score-value { color: var(--gray-700); font-size: 2.1rem; line-height: 1; font-weight: 500; }
+  .score-box.after .score-value { color: var(--green-700); }
+  .score-desc { font-size: 0.8rem; color: var(--gray-500); margin-top: 0.25rem; }
+  .delta {
+    color: var(--green-600); background: var(--green-50);
+    border: 1px solid var(--green-100); border-radius: 20px;
+    padding: 0.45rem 0.75rem; font-size: 0.82rem; font-weight: 500; text-align: center;
+  }
+
+  /* ── OUTCOMES ── */
+  #outcomes { background: var(--cream); }
+  .outcome-grid { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 1.5rem; align-items: start; }
+  .metric-list { display: flex; flex-direction: column; }
+  .metric-row {
+    display: grid; grid-template-columns: 76px 1fr; gap: 1rem;
+    padding: 1rem 0; border-bottom: 1px solid var(--gray-100); align-items: start;
+  }
+  .metric-row:last-child { border-bottom: none; }
+  .metric-pct { color: var(--green-600); font-size: 2rem; line-height: 1; font-weight: 500; }
+  .metric-text { color: var(--gray-500); line-height: 1.55; font-size: 0.94rem; font-weight: 300; }
+  .distribution-group { margin-bottom: 1.4rem; }
+  .distribution-group:last-child { margin-bottom: 0; }
+  .distribution-title { color: var(--gray-500); font-size: 0.8rem; margin-bottom: 0.7rem; }
+  .dist-row { display: grid; grid-template-columns: 18px 1fr 28px; align-items: center; gap: 0.75rem; margin-bottom: 0.5rem; }
+  .dist-label, .dist-count { color: var(--gray-500); font-size: 0.78rem; }
+  .dist-count { text-align: right; }
+  .dist-track { background: var(--gray-100); border-radius: 999px; overflow: hidden; height: 10px; }
+  .dist-fill { height: 100%; width: 0; border-radius: 999px; transition: width 1.1s cubic-bezier(0.4,0,0.2,1); }
+  .fill-dark { background: var(--green-700); }
+  .fill-mid { background: var(--green-400); }
+  .fill-light { background: var(--green-100); }
+
+  /* ── SATISFACTION ── */
+  #satisfaction { background: var(--white); }
+  .score-card-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+  .score-meta {
+    color: var(--green-600); background: var(--green-50);
+    border: 1px solid var(--green-100); border-radius: 20px;
+    display: inline-block; padding: 0.25rem 0.65rem;
+    font-size: 0.76rem; font-weight: 500; margin-bottom: 1rem;
+  }
+  .rating-row { display: grid; grid-template-columns: 1.3fr 2fr 32px; align-items: center; gap: 0.85rem; margin-bottom: 0.8rem; }
+  .rating-label { color: var(--gray-500); font-size: 0.83rem; }
+  .score-track { background: var(--gray-100); border-radius: 999px; overflow: hidden; height: 8px; }
+  .score-fill { height: 100%; width: 0; border-radius: 999px; transition: width 1.1s cubic-bezier(0.4,0,0.2,1); }
+  .rating-count { color: var(--gray-700); font-size: 0.84rem; font-weight: 500; text-align: right; }
+
+  /* ── COMPLETION (dark) ── */
+  #completion { background: var(--green-900); }
+  #completion .section-eyebrow { color: var(--teal-accent); }
+  #completion h2 { color: var(--white); }
+  #completion .section-intro { color: rgba(255,255,255,0.5); }
+  .completion-inner { display: grid; grid-template-columns: 1fr auto; gap: 4rem; align-items: start; margin-top: 3rem; }
+  .completion-panel {
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px; padding: 2rem;
+  }
+  .progress-row { margin-bottom: 1rem; }
+  .progress-row:last-child { margin-bottom: 0; }
+  .progress-meta { display: flex; justify-content: space-between; gap: 1rem; margin-bottom: 0.45rem; }
+  .progress-label { color: rgba(255,255,255,0.68); font-size: 0.9rem; font-weight: 300; }
+  .progress-value { color: var(--teal-accent); font-size: 0.9rem; font-weight: 500; }
+  .progress-track { height: 7px; background: rgba(255,255,255,0.09); border-radius: 999px; overflow: hidden; }
+  .progress-fill { height: 100%; width: 0; background: var(--teal-accent); border-radius: 999px; transition: width 1.1s cubic-bezier(0.4,0,0.2,1); }
+  /* stat callout replacing ring */
+  .completion-stat {
+    display: flex; flex-direction: column; gap: 1.5rem; min-width: 180px;
+  }
+  .comp-stat-box {
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px; padding: 1.5rem 1.75rem; text-align: center;
+    transition: border-color 0.3s;
+  }
+  .comp-stat-box:hover { border-color: rgba(63,201,160,0.3); }
+  .comp-stat-num { font-size: 2.75rem; font-weight: 300; color: var(--teal-accent); line-height: 1; display: block; margin-bottom: 0.4rem; }
+  .comp-stat-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.4); }
+
+  /* ── VOICES ── */
+  #voices { background: var(--white); }
+  .voice-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+  .voice-card {
+    background: var(--green-900); border: 1px solid rgba(63,201,160,0.22);
+    border-radius: 16px; padding: 1.5rem; min-height: 260px;
+    display: flex; flex-direction: column; justify-content: space-between;
+    position: relative; overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+  }
+  .voice-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(31,107,68,0.16); border-color: rgba(63,201,160,0.42); }
+  .voice-card::before {
+    content: ''; position: absolute; top: -55px; right: -55px;
+    width: 150px; height: 150px; border-radius: 50%; background: rgba(63,201,160,0.09);
+  }
+  .voice-text { color: rgba(255,255,255,0.78); line-height: 1.65; font-size: 0.98rem; font-style: italic; font-weight: 300; position: relative; }
+  .voice-attr { color: var(--teal-accent); font-size: 0.84rem; font-weight: 500; margin-top: 1.5rem; position: relative; }
+  .improvement-panel {
+    margin-top: 2rem; background: var(--green-50);
+    border: 1px solid var(--green-100); border-radius: 16px; padding: 1.5rem;
+  }
+  .improvement-panel .section-eyebrow { margin-bottom: 1rem; }
+  .chip-row { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .chip { font-size: 0.82rem; color: var(--gray-700); background: var(--white); border: 1px solid var(--green-100); padding: 0.35rem 0.875rem; border-radius: 20px; font-weight: 400; }
+  .chip-em { color: var(--green-700); font-weight: 500; background: rgba(255,255,255,0.7); }
+
+  /* ── MOTIVATIONS ── */
+  #motivations { background: var(--cream); }
+  .motivation-panel { background: var(--white); border: 1px solid rgba(0,0,0,0.06); border-radius: 16px; padding: 2rem; max-width: 760px; }
+  .motivation-labels { display: flex; justify-content: space-between; gap: 1rem; margin-bottom: 0.9rem; }
+  .motivation-labels span { font-size: 0.9rem; color: var(--gray-500); }
+  .motivation-labels strong { color: var(--green-600); }
+  .motivation-track { height: 22px; background: var(--gray-100); border-radius: 999px; display: flex; overflow: hidden; }
+  .motivation-a, .motivation-b { height: 100%; width: 0; transition: width 1.1s cubic-bezier(0.4,0,0.2,1); }
+  .motivation-a { background: var(--green-700); }
+  .motivation-b { background: var(--green-300); }
+  .motivation-note { font-size: 0.9rem; color: var(--gray-500); line-height: 1.65; margin-top: 1rem; font-weight: 300; }
+
+  /* ── CTA ── */
+  .cta-section {
+    background: var(--white); padding: 6rem 7vw;
+    text-align: center; display: flex; flex-direction: column; align-items: center;
+  }
+  .cta-section h2 { margin-bottom: 1rem; max-width: 620px; }
+  .cta-section p { font-size: 1rem; color: var(--gray-500); max-width: 520px; line-height: 1.75; margin-bottom: 2.5rem; font-weight: 300; }
+  .cta-section .btn-primary { font-size: 1rem; padding: 0.9rem 2.5rem; background: var(--green-700); color: var(--white); }
+  .cta-section .btn-primary:hover { background: var(--green-800); box-shadow: 0 8px 32px rgba(31,107,68,0.25); }
+
+  /* ── FOOTER ── */
+  footer { background: var(--green-900); padding: 2.5rem 7vw; display: flex; align-items: center; justify-content: space-between; }
+  .footer-logo { font-size: 1rem; font-weight: 500; color: rgba(255,255,255,0.6); }
+  .footer-logo span { color: var(--teal-accent); }
+  .footer-note { font-size: 0.8rem; color: rgba(255,255,255,0.3); }
+
+  /* ── ANIMATE ── */
+  .animate { opacity: 0; transform: translateY(18px); transition: opacity 0.55s ease, transform 0.55s ease; }
+  .animate.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 1180px) {
+    .voice-grid { grid-template-columns: repeat(2, 1fr); }
+    .approach-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 900px) {
+    nav { padding: 0 1.5rem; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; min-height: auto; padding: 6rem 5vw 4rem; }
+    .hero-text { padding: 0; }
+    .hero-visual { display: none; }
+    .hero-stats { flex-wrap: wrap; gap: 1.5rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .about-visual { display: none; }
+    .weeks-grid { grid-template-columns: 1fr; }
+    #facilitator { flex-direction: column; gap: 2rem; padding: 4rem 5vw; }
+    .intro-strip { gap: 1.5rem; padding: 1rem 5vw; flex-wrap: wrap; }
+    section { padding: 4rem 5vw; }
+    .curriculum-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+    .section-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+    .section-header .section-intro { text-align: left; }
+    .comparison-grid, .outcome-grid, .score-card-grid, .voice-grid { grid-template-columns: 1fr; }
+    .completion-inner { grid-template-columns: 1fr; }
+    .completion-stat { flex-direction: row; }
+  }
+  @media (max-width: 580px) {
+    .hero-stats { display: grid; grid-template-columns: 1fr 1fr; }
+    .hero-actions, .motivation-labels { flex-direction: column; align-items: flex-start; }
+    footer { flex-direction: column; gap: 0.75rem; text-align: center; }
+    .approach-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="main-nav">
+  <a href="#top" class="nav-logo"><span class="bracket">[</span>StackAspire<span class="bracket">]</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#curriculum">Curriculum</a></li>
+    <li><a href="#facilitator">Facilitator</a></li>
+    <li><a href="#impact" class="nav-impact">Impact</a></li>
+  </ul>
+</nav>
+
+<!-- ═══════════════════════════════════════════
+     PROGRAM SECTION
+════════════════════════════════════════════ -->
+
+<!-- HERO -->
+<section id="top" class="hero">
+  <div class="hero-text">
+    <div class="hero-badge">StackAdapt Leadership Program</div>
+    <h1>Lead with <em>intention.</em><br>Grow with purpose.</h1>
+    <p class="hero-sub">A 6-week leadership development journey designed for StackAdapt's next generation of managers. Build the mindsets, skills, and habits that define exceptional leaders.</p>
+    <div class="hero-actions">
+      <a href="#curriculum" class="btn-primary">Explore the Program</a>
+      <a href="#about" class="btn-ghost">
+        Learn more
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 7h10M8 4l4 3-4 3"/></svg>
+      </a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item"><span class="stat-num">6</span><span class="stat-label">Weeks</span></div>
+      <div class="stat-item"><span class="stat-num">5+</span><span class="stat-label">Lessons / week</span></div>
+      <div class="stat-item"><span class="stat-num">1</span><span class="stat-label">Facilitator</span></div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-card-stack">
+      <div class="hero-card card-back"></div>
+      <div class="hero-card card-mid"></div>
+      <div class="hero-card card-front">
+        <div class="hero-card-label">Program overview</div>
+        <div class="hero-card-title">Your leadership journey starts here</div>
+        <div class="hero-card-weeks">
+          <div class="hero-card-week-row"><span class="week-dot">1</span>Leading with Intentionality</div>
+          <div class="hero-card-week-row"><span class="week-dot">2</span>EQ, Trust &amp; Connection</div>
+          <div class="hero-card-week-row"><span class="week-dot">3</span>Feedback &amp; Difficult Conversations</div>
+          <div class="hero-card-week-row"><span class="week-dot">4</span>Delegation &amp; Time Leverage</div>
+          <div class="hero-card-week-row"><span class="week-dot">5</span>Growth Mindset &amp; Accountability</div>
+          <div class="hero-card-week-row"><span class="week-dot">6</span>Decision-Making Under Ambiguity</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAM STRIP -->
+<div class="intro-strip">
+  <div class="intro-strip-item"><div class="intro-strip-icon"><svg viewBox="0 0 16 16" stroke-width="1.5"><circle cx="8" cy="8" r="6.5"/><path d="M8 5v3l2 1.5"/></svg></div>Self-paced weekly modules</div>
+  <div class="intro-strip-sep"></div>
+  <div class="intro-strip-item"><div class="intro-strip-icon"><svg viewBox="0 0 16 16" stroke-width="1.5"><path d="M8 2l1.8 3.6L14 6.3l-3 2.9.7 4.1L8 11.4l-3.7 1.9.7-4.1L2 6.3l4.2-.7L8 2z"/></svg></div>Practical, StackAdapt-focused content</div>
+  <div class="intro-strip-sep"></div>
+  <div class="intro-strip-item"><div class="intro-strip-icon"><svg viewBox="0 0 16 16" stroke-width="1.5"><path d="M2 12s1.5-2 4-2 6 2 6 2"/><circle cx="7" cy="6" r="2.5"/><circle cx="12" cy="5" r="2"/></svg></div>Curated for emerging leaders</div>
+  <div class="intro-strip-sep"></div>
+  <div class="intro-strip-item"><div class="intro-strip-icon"><svg viewBox="0 0 16 16" stroke-width="1.5"><rect x="2" y="3" width="12" height="10" rx="2"/><path d="M5 7h6M5 10h4"/></svg></div>Hosted by Juliana dos Santos</div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-text">
+      <div class="section-eyebrow">About the program</div>
+      <h2>From individual contributor to <em>intentional leader</em></h2>
+      <p>StackAspire is designed to close the gap between doing great work and leading others to do great work. It's a structured, 6-week journey that equips StackAdapt employees — at any level — with the leadership fundamentals that matter most.</p>
+      <p>Whether you're stepping into your first people manager role or deepening your leadership presence as a senior IC, <strong>this program meets you where you are</strong> and moves you forward with clarity.</p>
+      <div class="about-values">
+        <div class="value-row">
+          <div class="value-icon"><svg viewBox="0 0 20 20"><circle cx="10" cy="10" r="8"/><path d="M10 6v4l2.5 2.5"/></svg></div>
+          <div class="value-text"><h4>Applied, not theoretical</h4><p>Every lesson includes practical frameworks you can apply to your real work immediately.</p></div>
+        </div>
+        <div class="value-row">
+          <div class="value-icon"><svg viewBox="0 0 20 20"><path d="M3 10a7 7 0 1014 0A7 7 0 003 10z"/><path d="M10 7v3l2 1"/></svg></div>
+          <div class="value-text"><h4>StackAdapt-specific context</h4><p>Built with StackAdapt culture, values, and operating model in mind — not generic leadership content.</p></div>
+        </div>
+        <div class="value-row">
+          <div class="value-icon"><svg viewBox="0 0 20 20"><path d="M10 2l2 6h6l-5 3.5 2 6L10 14l-5 3.5 2-6L2 8h6z"/></svg></div>
+          <div class="value-text"><h4>Self-leadership as the foundation</h4><p>Great leadership starts from within. You'll develop clarity on your own style and strengths first.</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="about-visual">
+      <div class="about-ring">
+        <div class="ring-dot rd1"></div><div class="ring-dot rd2"></div>
+        <div class="ring-dot rd3"></div><div class="ring-dot rd4"></div>
+        <div class="about-ring-inner">
+          <div class="ring-label">Program goal</div>
+          <div class="ring-title">Lead with<br>clarity &amp;<br>confidence</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CURRICULUM -->
+<section id="curriculum">
+  <div class="curriculum-header">
+    <div class="curriculum-header-left">
+      <div class="section-eyebrow">6-week curriculum</div>
+      <h2>What you'll learn</h2>
+    </div>
+    <p style="font-size:0.9rem;color:var(--gray-500);max-width:300px;text-align:right;font-weight:300;line-height:1.65;">Each week builds on the last — from mindset to action to sustainable leadership habits.</p>
+  </div>
+  <div class="weeks-grid">
+    <div class="week-card"><div class="week-card-header"><div class="week-accent"></div><div class="week-num">Week 01</div><div class="week-title">Leading with Intentionality</div></div><div class="week-card-body"><p class="week-desc">Uncover what truly separates leadership from management — it's not the title, it's the approach. Earn credibility through consistency, trust, and collaboration.</p><div class="week-topics"><div class="topic-item">Leadership vs. Management</div><div class="topic-item">Credibility: Leading Without a Title</div><div class="topic-item">From Doer to Enabler</div><div class="topic-item">Final Thoughts &amp; Next Steps</div></div></div><div class="week-footer"><span class="week-tag">The Mindset Shift</span><div class="week-arrow"><svg viewBox="0 0 12 12" stroke-width="1.8"><path d="M2 6h8M6 3l3 3-3 3"/></svg></div></div></div>
+    <div class="week-card"><div class="week-card-header"><div class="week-accent"></div><div class="week-num">Week 02</div><div class="week-title">EQ, Building Trust &amp; Connection</div></div><div class="week-card-body"><p class="week-desc">People management is about people. Develop emotional intelligence, build trust before you have a title, and learn how to coach conversations that empower others.</p><div class="week-topics"><div class="topic-item">Emotional Intelligence</div><div class="topic-item">Building Trust Before Title</div><div class="topic-item">Coaching Conversations</div><div class="topic-item">Psychological Safety</div></div></div><div class="week-footer"><span class="week-tag">Leading Through Connection</span><div class="week-arrow"><svg viewBox="0 0 12 12" stroke-width="1.8"><path d="M2 6h8M6 3l3 3-3 3"/></svg></div></div></div>
+    <div class="week-card"><div class="week-card-header"><div class="week-accent"></div><div class="week-num">Week 03</div><div class="week-title">Feedback &amp; Difficult Conversations</div></div><div class="week-card-body"><p class="week-desc">Navigate feedback and difficult conversations across peers, cross-functional partners, and even your manager — with clarity, confidence, and care.</p><div class="week-topics"><div class="topic-item">Engaging in Feedback Conversations</div><div class="topic-item">Receiving Feedback with Grace</div><div class="topic-item">Navigating Difficult Conversations</div></div></div><div class="week-footer"><span class="week-tag">Effective Feedback</span><div class="week-arrow"><svg viewBox="0 0 12 12" stroke-width="1.8"><path d="M2 6h8M6 3l3 3-3 3"/></svg></div></div></div>
+    <div class="week-card"><div class="week-card-header"><div class="week-accent"></div><div class="week-num">Week 04</div><div class="week-title">Delegation &amp; Time Leverage</div></div><div class="week-card-body"><p class="week-desc">Even without a formal title, the choices you make about your time and how you share ownership with others shape your leadership impact and influence.</p><div class="week-topics"><div class="topic-item">Finding Your Energy Multipliers</div><div class="topic-item">What to Own and What to Let Go</div><div class="topic-item">Enabling Others to Contribute</div></div></div><div class="week-footer"><span class="week-tag">Time &amp; Impact</span><div class="week-arrow"><svg viewBox="0 0 12 12" stroke-width="1.8"><path d="M2 6h8M6 3l3 3-3 3"/></svg></div></div></div>
+    <div class="week-card"><div class="week-card-header"><div class="week-accent"></div><div class="week-num">Week 05</div><div class="week-title">Growth Mindset &amp; Accountability</div></div><div class="week-card-body"><p class="week-desc">Self-leadership shows up in moments of pressure — how you handle setbacks, how you talk to yourself, and how you take ownership of what you can influence.</p><div class="week-topics"><div class="topic-item">Growth Mindset</div><div class="topic-item">Resilience Under Pressure</div><div class="topic-item">Self-Leadership</div></div></div><div class="week-footer"><span class="week-tag">Growth &amp; Ownership</span><div class="week-arrow"><svg viewBox="0 0 12 12" stroke-width="1.8"><path d="M2 6h8M6 3l3 3-3 3"/></svg></div></div></div>
+    <div class="week-card"><div class="week-card-header"><div class="week-accent"></div><div class="week-num">Week 06</div><div class="week-title">Decision-Making Under Ambiguity</div></div><div class="week-card-body"><p class="week-desc">Decision-making is the clearest signal of leadership readiness. As responsibility grows, ambiguity becomes normal. Learn to lead forward with structure and confidence.</p><div class="week-topics"><div class="topic-item">Navigating Ambiguity</div><div class="topic-item">Start With Clarity: The 5 Whys</div><div class="topic-item">Risk &amp; Stakeholder Judgment</div></div></div><div class="week-footer"><span class="week-tag">Root Cause &amp; Decisions</span><div class="week-arrow"><svg viewBox="0 0 12 12" stroke-width="1.8"><path d="M2 6h8M6 3l3 3-3 3"/></svg></div></div></div>
+  </div>
+</section>
+
+<!-- APPROACH -->
+<section id="approach">
+  <div class="section-eyebrow">Learning design</div>
+  <h2 style="color:var(--white);">How this program works</h2>
+  <p class="section-intro">Each week combines structured learning with reflection exercises — designed to fit into your real work, not interrupt it.</p>
+  <div class="approach-grid">
+    <div class="approach-card"><div class="approach-icon"><svg viewBox="0 0 22 22"><rect x="3" y="3" width="16" height="16" rx="3"/><path d="M7 11h8M7 7h8M7 15h5"/></svg></div><h4>Structured lessons</h4><p>Each week contains 4–6 bite-sized lessons with a clear narrative arc, from concepts to practical application.</p></div>
+    <div class="approach-card"><div class="approach-icon"><svg viewBox="0 0 22 22"><circle cx="11" cy="11" r="8"/><path d="M11 7v4l2.5 2.5"/></svg></div><h4>Self-paced learning</h4><p>Start each module on your schedule. Progress at a pace that lets you genuinely absorb and reflect, not just complete.</p></div>
+    <div class="approach-card"><div class="approach-icon"><svg viewBox="0 0 22 22"><path d="M4 16s1.5-3 5-3 9 3 9 3"/><circle cx="10" cy="8" r="3"/></svg></div><h4>Facilitated by an expert</h4><p>Juliana dos Santos curated and facilitated every week, bringing deep experience in people and leadership development at StackAdapt.</p></div>
+    <div class="approach-card"><div class="approach-icon"><svg viewBox="0 0 22 22"><path d="M11 4l2 6h6L14 14l2 6-5-3.5L6 20l2-6-5-3.5h6z"/></svg></div><h4>Action-oriented outcomes</h4><p>Every lesson ends with clear, concrete takeaways you can bring into your next 1:1, team meeting, or career conversation.</p></div>
+  </div>
+</section>
+
+<!-- FACILITATOR -->
+<section id="facilitator">
+  <div class="facilitator-left">
+    <div class="facilitator-avatar">
+      <img src="https://julianadossantos-lnd.github.io/stackaspire/assets/juliana-facilitator.jpeg" alt="Juliana dos Santos">
+    </div>
+    <div class="facilitator-name">Juliana dos Santos</div>
+    <div class="facilitator-role">Program Facilitator</div>
+  </div>
+  <div class="facilitator-right">
+    <div class="section-eyebrow">Meet your facilitator</div>
+    <h2>Built with StackAdapt's context in mind</h2>
+    <p>Juliana dos Santos is the architect and facilitator behind the StackAspire program. With a deep understanding of StackAdapt's culture, growth trajectory, and the real challenges emerging leaders face, she built this curriculum to be genuinely useful — not just theoretically sound.</p>
+    <p>Each week of StackAspire was carefully constructed to connect the dots between day-to-day work and long-term leadership impact. Juliana brings empathy, rigor, and firsthand experience of what it takes to lead at StackAdapt.</p>
+    <div class="facilitator-tags">
+      <span class="ftag">Leadership Development</span><span class="ftag">People Management</span>
+      <span class="ftag">Coaching</span><span class="ftag">Organizational Design</span>
+      <span class="ftag">StackAdapt Culture</span><span class="ftag">Talent Growth</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     IMPACT SECTION
+════════════════════════════════════════════ -->
+
+<!-- IMPACT HERO -->
+<section id="impact" class="hero">
+  <div class="hero-text">
+    <div class="hero-badge">Program Results · July 2026</div>
+    <h1>Outcomes that <em>speak for themselves.</em></h1>
+    <p class="hero-sub">Measuring the impact of StackAspire across 91+ participants, 2 cohort waves, and 6 weeks of intentional leadership development.</p>
+    <div class="hero-actions">
+      <a href="#survey" class="btn-primary">Explore the Results</a>
+      <a href="#voices" class="btn-ghost">
+        Participant voices
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 7h10M8 4l4 3-4 3"/></svg>
+      </a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item"><span class="stat-num">91+</span><span class="stat-label">Participants</span></div>
+      <div class="stat-item"><span class="stat-num">4.7</span><span class="stat-label">NPS / 5</span></div>
+      <div class="stat-item"><span class="stat-num">4.6</span><span class="stat-label">VTS / 5</span></div>
+      <div class="stat-item"><span class="stat-num">+0.81</span><span class="stat-label">Clarity gain</span></div>
+    </div>
+    <div class="updated-badge">Last updated: July 2026</div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-card-stack">
+      <div class="hero-card card-back"></div>
+      <div class="hero-card card-mid"></div>
+      <div class="hero-card card-front">
+        <div class="hero-card-label">Impact snapshot</div>
+        <div class="hero-card-title">Strong signal across readiness, confidence &amp; value</div>
+        <div class="hero-card-metrics">
+          <div class="hero-card-metric"><strong>98%</strong><span>clarity on whether people leadership is the right next step</span></div>
+          <div class="hero-card-metric"><strong>100%</strong><span>confidence handling core people leadership responsibilities</span></div>
+          <div class="hero-card-metric"><strong>97%</strong><span>confidence applying skills gained through Action Labs</span></div>
+          <div class="hero-card-metric"><strong>92%</strong><span>skill relevance to career growth at StackAdapt</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- IMPACT STRIP -->
+<div class="intro-strip impact-strip">
+  <div class="intro-strip-item"><div class="intro-strip-icon"><svg viewBox="0 0 16 16" stroke-width="1.5"><circle cx="8" cy="8" r="6.5"/><path d="M8 5v3l2 1.5"/></svg></div>2 cohort waves measured</div>
+  <div class="intro-strip-sep"></div>
+  <div class="intro-strip-item"><div class="intro-strip-icon"><svg viewBox="0 0 16 16" stroke-width="1.5"><path d="M8 2l1.8 3.6L14 6.3l-3 2.9.7 4.1L8 11.4l-3.7 1.9.7-4.1L2 6.3l4.2-.7L8 2z"/></svg></div>77 end-of-program responses</div>
+  <div class="intro-strip-sep"></div>
+  <div class="intro-strip-item"><div class="intro-strip-icon"><svg viewBox="0 0 16 16" stroke-width="1.5"><path d="M2 12s1.5-2 4-2 6 2 6 2"/><circle cx="7" cy="6" r="2.5"/><circle cx="12" cy="5" r="2"/></svg></div>77 pre-program motivations</div>
+  <div class="intro-strip-sep"></div>
+  <div class="intro-strip-item"><div class="intro-strip-icon"><svg viewBox="0 0 16 16" stroke-width="1.5"><rect x="2" y="3" width="12" height="10" rx="2"/><path d="M5 7h6M5 10h4"/></svg></div>6 weeks of completion data</div>
+</div>
+
+<!-- BEFORE & AFTER -->
+<section id="survey" class="animate">
+  <div class="section-header">
+    <div><div class="section-eyebrow">Survey outcomes</div><h2>Before &amp; <em>after.</em></h2></div>
+    <p class="section-intro">Pre and post-program survey scores across two key dimensions — measured at enrollment and at completion.</p>
+  </div>
+  <div class="comparison-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;">
+    <div class="comparison-card">
+      <div class="comparison-head"><div class="comparison-kicker">Survey dimension</div><div class="comparison-title">Leadership readiness clarity</div></div>
+      <div class="comparison-body">
+        <div class="before-after">
+          <div class="score-box"><div class="score-label">Pre-program</div><div class="score-value">3.75</div><div class="score-desc">avg / 5</div></div>
+          <div class="score-box after"><div class="score-label">Post-program</div><div class="score-value">4.56</div><div class="score-desc">avg / 5</div></div>
+        </div>
+        <div class="delta">+0.81 gain · 98% rated 4 or 5 post-program</div>
+      </div>
+    </div>
+    <div class="comparison-card">
+      <div class="comparison-head"><div class="comparison-kicker">Survey dimension</div><div class="comparison-title">Confidence in core people skills</div></div>
+      <div class="comparison-body">
+        <div class="before-after">
+          <div class="score-box"><div class="score-label">Pre-program</div><div class="score-value">3.86</div><div class="score-desc">avg / 5</div></div>
+          <div class="score-box after"><div class="score-label">Post-program</div><div class="score-value">4.44</div><div class="score-desc">avg / 5</div></div>
+        </div>
+        <div class="delta">+0.58 gain · 100% rated 4 or 5 post-program</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OUTCOMES -->
+<section id="outcomes" class="animate">
+  <div class="section-header">
+    <div><div class="section-eyebrow">End of program survey</div><h2>What participants <em>took away.</em></h2></div>
+    <p class="section-intro">Based on 77 end-of-program survey responses measuring learning, growth, and confidence across six dimensions.</p>
+  </div>
+  <div class="outcome-grid">
+    <div class="metric-card">
+      <div class="metric-head"><div class="metric-kicker">Key outcome metrics</div><div class="metric-title">Growth signals after completion</div></div>
+      <div class="metric-body metric-list">
+        <div class="metric-row"><div class="metric-pct">98%</div><div class="metric-text">have clarity on whether people leadership is the right next step for them</div></div>
+        <div class="metric-row"><div class="metric-pct">100%</div><div class="metric-text">feel confident handling core people leadership responsibilities</div></div>
+        <div class="metric-row"><div class="metric-pct">97%</div><div class="metric-text">confident in applying the skills gained through Action Labs</div></div>
+        <div class="metric-row"><div class="metric-pct">92%</div><div class="metric-text">say StackAspire developed skills relevant to their career at StackAdapt</div></div>
+        <div class="metric-row"><div class="metric-pct">90%</div><div class="metric-text">better understand what good management looks like at StackAdapt</div></div>
+        <div class="metric-row"><div class="metric-pct">88%</div><div class="metric-text">more aware of how they can own their professional growth</div></div>
+      </div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-head"><div class="metric-kicker">Score distributions</div><div class="metric-title">Post-program ratings</div></div>
+      <div class="metric-body">
+        <div class="distribution-group">
+          <div class="distribution-title">Leadership readiness clarity (avg 4.56)</div>
+          <div class="dist-row"><div class="dist-label">5</div><div class="dist-track"><div class="dist-fill fill-dark" data-w="58"></div></div><div class="dist-count">29</div></div>
+          <div class="dist-row"><div class="dist-label">4</div><div class="dist-track"><div class="dist-fill fill-mid" data-w="40"></div></div><div class="dist-count">20</div></div>
+          <div class="dist-row"><div class="dist-label">3</div><div class="dist-track"><div class="dist-fill fill-light" data-w="2"></div></div><div class="dist-count">1</div></div>
+        </div>
+        <div class="distribution-group">
+          <div class="distribution-title">Confidence in core people skills (avg 4.44)</div>
+          <div class="dist-row"><div class="dist-label">5</div><div class="dist-track"><div class="dist-fill fill-dark" data-w="44"></div></div><div class="dist-count">22</div></div>
+          <div class="dist-row"><div class="dist-label">4</div><div class="dist-track"><div class="dist-fill fill-mid" data-w="56"></div></div><div class="dist-count">28</div></div>
+        </div>
+        <div class="distribution-group">
+          <div class="distribution-title">Owns professional growth (avg 4.38)</div>
+          <div class="dist-row"><div class="dist-label">5</div><div class="dist-track"><div class="dist-fill fill-dark" data-w="46"></div></div><div class="dist-count">23</div></div>
+          <div class="dist-row"><div class="dist-label">4</div><div class="dist-track"><div class="dist-fill fill-mid" data-w="46"></div></div><div class="dist-count">23</div></div>
+          <div class="dist-row"><div class="dist-label">3</div><div class="dist-track"><div class="dist-fill fill-light" data-w="8"></div></div><div class="dist-count">4</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SATISFACTION -->
+<section id="satisfaction" class="animate">
+  <div class="section-header">
+    <div><div class="section-eyebrow">Program satisfaction</div><h2>Worth the <em>investment.</em></h2></div>
+    <p class="section-intro">Participants rated both the likelihood of recommending StackAspire and the value delivered relative to time spent.</p>
+  </div>
+  <div class="score-card-grid">
+    <div class="metric-card">
+      <div class="metric-head"><div class="metric-kicker">Recommendation</div><div class="metric-title">Likelihood to recommend to other ICs</div></div>
+      <div class="metric-body">
+        <div class="score-meta">NPS avg 4.65 / 5 · n = 77</div>
+        <div class="rating-row"><div class="rating-label">5 — Very likely</div><div class="score-track"><div class="score-fill fill-dark" data-w="72"></div></div><div class="rating-count">29</div></div>
+        <div class="rating-row"><div class="rating-label">4 — Likely</div><div class="score-track"><div class="score-fill fill-mid" data-w="22"></div></div><div class="rating-count">9</div></div>
+        <div class="rating-row"><div class="rating-label">3 — Neutral</div><div class="score-track"><div class="score-fill fill-light" data-w="2"></div></div><div class="rating-count">1</div></div>
+        <div class="rating-row"><div class="rating-label">2 — Unlikely</div><div class="score-track"><div class="score-fill fill-light" data-w="2"></div></div><div class="rating-count">1</div></div>
+      </div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-head"><div class="metric-kicker">Time value</div><div class="metric-title">Value relative to time invested</div></div>
+      <div class="metric-body">
+        <div class="score-meta">VTS avg 4.63 / 5 · n = 77</div>
+        <div class="rating-row"><div class="rating-label">5 — Extremely valuable</div><div class="score-track"><div class="score-fill fill-dark" data-w="70"></div></div><div class="rating-count">28</div></div>
+        <div class="rating-row"><div class="rating-label">4 — Moderately valuable</div><div class="score-track"><div class="score-fill fill-mid" data-w="25"></div></div><div class="rating-count">10</div></div>
+        <div class="rating-row"><div class="rating-label">3 — Neutral</div><div class="score-track"><div class="score-fill fill-light" data-w="2"></div></div><div class="rating-count">1</div></div>
+        <div class="rating-row"><div class="rating-label">2 — Slightly valuable</div><div class="score-track"><div class="score-fill fill-light" data-w="2"></div></div><div class="rating-count">1</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPLETION -->
+<section id="completion" class="animate">
+  <div class="section-eyebrow">Learning progress</div>
+  <h2>Module completion <em style="color:var(--teal-accent);">rates.</em></h2>
+  <p class="section-intro">Completion across all 6 weeks. Weeks 5–6 reflect lower rates due to the Spring cohort still actively working through the program.</p>
+  <div class="completion-inner">
+    <div class="completion-panel">
+      <div class="progress-row"><div class="progress-meta"><span class="progress-label">Welcome to StackAspire</span><span class="progress-value">91%</span></div><div class="progress-track"><div class="progress-fill" data-w="91"></div></div></div>
+      <div class="progress-row"><div class="progress-meta"><span class="progress-label">Week 1 — Leading with intentionality</span><span class="progress-value">92%</span></div><div class="progress-track"><div class="progress-fill" data-w="92"></div></div></div>
+      <div class="progress-row"><div class="progress-meta"><span class="progress-label">Week 2 — EQ, building trust &amp; connection</span><span class="progress-value">92%</span></div><div class="progress-track"><div class="progress-fill" data-w="92"></div></div></div>
+      <div class="progress-row"><div class="progress-meta"><span class="progress-label">Week 3 — Feedback &amp; difficult conversations</span><span class="progress-value">92%</span></div><div class="progress-track"><div class="progress-fill" data-w="92"></div></div></div>
+      <div class="progress-row"><div class="progress-meta"><span class="progress-label">Week 4 — Delegation &amp; time leverage</span><span class="progress-value">91%</span></div><div class="progress-track"><div class="progress-fill" data-w="91"></div></div></div>
+      <div class="progress-row"><div class="progress-meta"><span class="progress-label">Week 5 — Growth mindset &amp; accountability</span><span class="progress-value">91%</span></div><div class="progress-track"><div class="progress-fill" data-w="91"></div></div></div>
+      <div class="progress-row"><div class="progress-meta"><span class="progress-label">Week 6 — Decision-making under ambiguity</span><span class="progress-value">88%</span></div><div class="progress-track"><div class="progress-fill" data-w="88"></div></div></div>
+    </div>
+    <div class="completion-stat">
+      <div class="comp-stat-box">
+        <span class="comp-stat-num">91%</span>
+        <span class="comp-stat-label">Avg completion</span>
+      </div>
+      <div class="comp-stat-box">
+        <span class="comp-stat-num">91+</span>
+        <span class="comp-stat-label">Total enrolled</span>
+      </div>
+      <div class="comp-stat-box">
+        <span class="comp-stat-num">2</span>
+        <span class="comp-stat-label">Cohort waves</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VOICES -->
+<section id="voices" class="animate">
+  <div class="section-header">
+    <div><div class="section-eyebrow">Participant voices</div><h2>In their own <em>words.</em></h2></div>
+    <p class="section-intro">Selected responses from the end-of-program open feedback question.</p>
+  </div>
+  <div class="voice-grid">
+    <div class="voice-card"><p class="voice-text">"I genuinely believe nothing should be changed — everything was very detailed, aspiring, and painted the most realistic picture of what people management looks like for aspiring leaders."</p><div class="voice-attr">Allen Ortilla</div></div>
+    <div class="voice-card"><p class="voice-text">"The process is extremely valuable. For those who haven't managed people before, having more time to practice coaching conversations would be super helpful."</p><div class="voice-attr">Alex Rhead</div></div>
+    <div class="voice-card"><p class="voice-text">"I got a lot of value from when we had the speaker and Q&amp;A session. More people manager involvement would make it even better."</p><div class="voice-attr">Josh Herenberg</div></div>
+    <div class="voice-card"><p class="voice-text">"I would love a list of resources related to the content — books, YouTube links — so I could revisit them to further my development and growth."</p><div class="voice-attr">Annabelle Loudon</div></div>
+  </div>
+  <div class="improvement-panel">
+    <div class="section-eyebrow">Top improvement suggestions</div>
+    <div class="chip-row">
+      <span class="chip chip-em">More guest speakers</span><span class="chip chip-em">Longer Action Labs</span>
+      <span class="chip">Rotate breakout partners</span><span class="chip">SA-specific content</span>
+      <span class="chip">Record live sessions</span><span class="chip">Resource leave-behinds</span>
+      <span class="chip">In-person option</span><span class="chip">Mentorship follow-on</span>
+      <span class="chip">Dept-specific tracks</span>
+    </div>
+  </div>
+</section>
+
+<!-- MOTIVATIONS -->
+<section id="motivations" class="animate">
+  <div class="section-eyebrow">Who is StackAspire for</div>
+  <h2>Participant <em>motivations.</em></h2>
+  <p class="section-intro" style="margin-bottom:2rem;">What brought people into the program — based on 77 pre-program survey responses.</p>
+  <div class="motivation-panel">
+    <div class="motivation-labels">
+      <span><strong>A) 60%</strong> Passion for coaching &amp; developing others</span>
+      <span><strong>B) 40%</strong> Advancing career</span>
+    </div>
+    <div class="motivation-track">
+      <div class="motivation-a" data-w="60"></div>
+      <div class="motivation-b" data-w="40"></div>
+    </div>
+    <p class="motivation-note">A healthy split — 60% intrinsically motivated to develop others, 40% career-driven.</p>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-section">
+  <div class="section-eyebrow" style="color:var(--green-600);">Ready to continue?</div>
+  <h2>Start with the curriculum, then track the impact</h2>
+  <p>StackAspire brings the learning journey and program outcomes together in one place — from the six-week leadership path to the results it created across cohorts.</p>
+  <a href="#curriculum" class="btn-primary">View the curriculum</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo"><span>[</span>StackAspire<span>]</span> · StackAdapt</div>
+  <div class="footer-note">Leadership Development Program · Facilitated by Juliana dos Santos · Impact data updated July 2026</div>
+</footer>
+
+<script>
+  // Nav scroll shadow
+  const nav = document.getElementById('main-nav');
+  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 20));
+
+  // Fade-in on scroll
+  const fadeObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.animate').forEach(el => fadeObs.observe(el));
+
+  // Animate bars on scroll
+  function triggerBars(container) {
+    container.querySelectorAll('[data-w]').forEach(el => { el.style.width = el.dataset.w + '%'; });
+  }
+  const barObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { setTimeout(() => triggerBars(e.target), 180); barObs.unobserve(e.target); }
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('section').forEach(s => barObs.observe(s));
+</script>
+</body>
+</html>
