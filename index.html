@@ -323,17 +323,23 @@
   #approach .section-eyebrow { color: var(--teal-accent); }
   #approach h2 { color: var(--white); }
   #approach .section-intro { color: rgba(255,255,255,0.5); margin-bottom: 3.5rem; }
-  .approach-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+  .approach-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-top: 3.5rem; }
   .approach-card {
-    border: 1px solid rgba(255,255,255,0.08); border-radius: 16px;
-    padding: 2rem 1.5rem; background: rgba(255,255,255,0.04);
-    transition: border-color 0.3s, background 0.3s;
+    background: var(--cream); border: 1px solid var(--green-100);
+    border-radius: 16px; padding: 2rem 1.5rem;
+    display: flex; flex-direction: column; align-items: center; text-align: center;
+    transition: border-color 0.3s, transform 0.3s;
   }
-  .approach-card:hover { border-color: rgba(63,201,160,0.3); background: rgba(255,255,255,0.07); }
-  .approach-icon { width: 44px; height: 44px; border-radius: 12px; background: rgba(63,201,160,0.12); display: flex; align-items: center; justify-content: center; margin-bottom: 1.25rem; }
-  .approach-icon svg { width: 20px; height: 20px; stroke: var(--teal-accent); stroke-width: 1.8; fill: none; }
-  .approach-card h4 { font-size: 1rem; font-weight: 500; color: var(--white); margin-bottom: 0.6rem; line-height: 1.3; }
-  .approach-card p { font-size: 0.855rem; color: rgba(255,255,255,0.45); line-height: 1.65; font-weight: 300; }
+  .approach-card:hover { border-color: var(--green-300); transform: translateY(-3px); }
+  .approach-circle {
+    width: 72px; height: 72px; border-radius: 50%;
+    background: var(--green-50); border: 1px solid var(--green-100);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1.25rem; flex-shrink: 0;
+  }
+  .approach-circle svg { width: 28px; height: 28px; stroke-width: 1.6; fill: none; stroke: var(--green-700); }
+  .approach-card h4 { font-size: 1rem; font-weight: 500; color: var(--gray-900); margin-bottom: 0.5rem; }
+  .approach-card p { font-size: 0.855rem; color: var(--gray-500); line-height: 1.65; font-weight: 300; }
 
   /* ── FACILITATOR ── */
   #facilitator { background: var(--white); display: flex; gap: 5rem; align-items: center; }
@@ -481,8 +487,8 @@
   .voice-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
   .voice-card {
     background: var(--green-900); border: 1px solid rgba(63,201,160,0.22);
-    border-radius: 16px; padding: 1.5rem; min-height: 260px;
-    display: flex; flex-direction: column; justify-content: space-between;
+    border-radius: 16px; padding: 1.25rem;
+    display: flex; flex-direction: column;
     position: relative; overflow: hidden;
     transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
   }
@@ -491,8 +497,8 @@
     content: ''; position: absolute; top: -55px; right: -55px;
     width: 150px; height: 150px; border-radius: 50%; background: rgba(63,201,160,0.09);
   }
-  .voice-text { color: rgba(255,255,255,0.78); line-height: 1.65; font-size: 0.98rem; font-style: italic; font-weight: 300; position: relative; }
-  .voice-attr { color: var(--teal-accent); font-size: 0.84rem; font-weight: 500; margin-top: 1.5rem; position: relative; }
+  .voice-text { color: rgba(255,255,255,0.78); line-height: 1.6; font-size: 0.9rem; font-style: italic; font-weight: 300; position: relative; }
+  .voice-attr { color: var(--teal-accent); font-size: 0.82rem; font-weight: 500; margin-top: 0.75rem; position: relative; }
   .improvement-panel {
     margin-top: 2rem; background: var(--green-50);
     border: 1px solid var(--green-100); border-radius: 16px; padding: 1.5rem;
@@ -530,7 +536,38 @@
   .footer-logo span { color: var(--teal-accent); }
   .footer-note { font-size: 0.8rem; color: rgba(255,255,255,0.3); }
 
-  /* ── ANIMATE ── */
+  /* ── COLLAPSIBLE WEEK CARDS ── */
+  .week-card.collapsible { cursor: pointer; }
+  .week-card.collapsible .week-collapsible-body {
+    max-height: 0;
+    overflow: hidden;
+    padding-top: 0;
+    padding-bottom: 0;
+    transition: max-height 0.35s ease, padding 0.35s ease;
+  }
+  .week-card.collapsible.open .week-collapsible-body {
+    max-height: 400px;
+    padding-top: 1.25rem;
+    padding-bottom: 0;
+  }
+  .week-card.collapsible .week-card-header { cursor: pointer; }
+  .week-card.collapsible .week-card-header::after {
+    content: '+';
+    position: absolute;
+    top: 1.2rem; right: 1.2rem;
+    color: rgba(255,255,255,0.35);
+    font-size: 1.2rem;
+    font-weight: 300;
+    line-height: 1;
+    transition: transform 0.3s ease, color 0.2s;
+  }
+  .week-card.collapsible.open .week-card-header::after {
+    transform: rotate(45deg);
+    color: var(--teal-accent);
+  }
+  .week-card.collapsible .week-footer {
+    padding-top: 0.75rem;
+  }
   .animate { opacity: 0; transform: translateY(18px); transition: opacity 0.55s ease, transform 0.55s ease; }
   .animate.visible { opacity: 1; transform: translateY(0); }
 
@@ -679,12 +716,12 @@
     <p style="font-size:0.9rem;color:var(--gray-500);max-width:300px;text-align:right;font-weight:300;line-height:1.65;">Each week builds on the last — from mindset to action to sustainable leadership habits.</p>
   </div>
   <div class="weeks-grid">
-    <div class="week-card"><div class="week-card-header"><div class="week-accent"></div><div class="week-num">Week 01</div><div class="week-title">Leading with Intentionality</div></div><div class="week-card-body"><p class="week-desc">Uncover what truly separates leadership from management — it's not the title, it's the approach. Earn credibility through consistency, trust, and collaboration.</p><div class="week-topics"><div class="topic-item">Leadership vs. Management</div><div class="topic-item">Credibility: Leading Without a Title</div><div class="topic-item">From Doer to Enabler</div><div class="topic-item">Final Thoughts &amp; Next Steps</div></div></div><div class="week-footer"><span class="week-tag">The Mindset Shift</span><div class="week-arrow"><svg viewBox="0 0 12 12" stroke-width="1.8"><path d="M2 6h8M6 3l3 3-3 3"/></svg></div></div></div>
-    <div class="week-card"><div class="week-card-header"><div class="week-accent"></div><div class="week-num">Week 02</div><div class="week-title">EQ, Building Trust &amp; Connection</div></div><div class="week-card-body"><p class="week-desc">People management is about people. Develop emotional intelligence, build trust before you have a title, and learn how to coach conversations that empower others.</p><div class="week-topics"><div class="topic-item">Emotional Intelligence</div><div class="topic-item">Building Trust Before Title</div><div class="topic-item">Coaching Conversations</div><div class="topic-item">Psychological Safety</div></div></div><div class="week-footer"><span class="week-tag">Leading Through Connection</span><div class="week-arrow"><svg viewBox="0 0 12 12" stroke-width="1.8"><path d="M2 6h8M6 3l3 3-3 3"/></svg></div></div></div>
-    <div class="week-card"><div class="week-card-header"><div class="week-accent"></div><div class="week-num">Week 03</div><div class="week-title">Feedback &amp; Difficult Conversations</div></div><div class="week-card-body"><p class="week-desc">Navigate feedback and difficult conversations across peers, cross-functional partners, and even your manager — with clarity, confidence, and care.</p><div class="week-topics"><div class="topic-item">Engaging in Feedback Conversations</div><div class="topic-item">Receiving Feedback with Grace</div><div class="topic-item">Navigating Difficult Conversations</div></div></div><div class="week-footer"><span class="week-tag">Effective Feedback</span><div class="week-arrow"><svg viewBox="0 0 12 12" stroke-width="1.8"><path d="M2 6h8M6 3l3 3-3 3"/></svg></div></div></div>
-    <div class="week-card"><div class="week-card-header"><div class="week-accent"></div><div class="week-num">Week 04</div><div class="week-title">Delegation &amp; Time Leverage</div></div><div class="week-card-body"><p class="week-desc">Even without a formal title, the choices you make about your time and how you share ownership with others shape your leadership impact and influence.</p><div class="week-topics"><div class="topic-item">Finding Your Energy Multipliers</div><div class="topic-item">What to Own and What to Let Go</div><div class="topic-item">Enabling Others to Contribute</div></div></div><div class="week-footer"><span class="week-tag">Time &amp; Impact</span><div class="week-arrow"><svg viewBox="0 0 12 12" stroke-width="1.8"><path d="M2 6h8M6 3l3 3-3 3"/></svg></div></div></div>
-    <div class="week-card"><div class="week-card-header"><div class="week-accent"></div><div class="week-num">Week 05</div><div class="week-title">Growth Mindset &amp; Accountability</div></div><div class="week-card-body"><p class="week-desc">Self-leadership shows up in moments of pressure — how you handle setbacks, how you talk to yourself, and how you take ownership of what you can influence.</p><div class="week-topics"><div class="topic-item">Growth Mindset</div><div class="topic-item">Resilience Under Pressure</div><div class="topic-item">Self-Leadership</div></div></div><div class="week-footer"><span class="week-tag">Growth &amp; Ownership</span><div class="week-arrow"><svg viewBox="0 0 12 12" stroke-width="1.8"><path d="M2 6h8M6 3l3 3-3 3"/></svg></div></div></div>
-    <div class="week-card"><div class="week-card-header"><div class="week-accent"></div><div class="week-num">Week 06</div><div class="week-title">Decision-Making Under Ambiguity</div></div><div class="week-card-body"><p class="week-desc">Decision-making is the clearest signal of leadership readiness. As responsibility grows, ambiguity becomes normal. Learn to lead forward with structure and confidence.</p><div class="week-topics"><div class="topic-item">Navigating Ambiguity</div><div class="topic-item">Start With Clarity: The 5 Whys</div><div class="topic-item">Risk &amp; Stakeholder Judgment</div></div></div><div class="week-footer"><span class="week-tag">Root Cause &amp; Decisions</span><div class="week-arrow"><svg viewBox="0 0 12 12" stroke-width="1.8"><path d="M2 6h8M6 3l3 3-3 3"/></svg></div></div></div>
+    <div class="week-card collapsible" onclick="toggleWeek(this)"><div class="week-card-header"><div class="week-accent"></div><div class="week-num">Week 01</div><div class="week-title">Leading with Intentionality</div></div><div class="week-card-body week-collapsible-body"><p class="week-desc">Uncover what truly separates leadership from management. It's not the title, it's the approach. Earn credibility through consistency, trust, and collaboration.</p><div class="week-topics"><div class="topic-item">Leadership vs. Management</div><div class="topic-item">Credibility: Leading Without a Title</div><div class="topic-item">From Doer to Enabler</div><div class="topic-item">Final Thoughts &amp; Next Steps</div></div></div><div class="week-footer"><span class="week-tag">The Mindset Shift</span></div></div>
+    <div class="week-card collapsible" onclick="toggleWeek(this)"><div class="week-card-header"><div class="week-accent"></div><div class="week-num">Week 02</div><div class="week-title">EQ, Building Trust &amp; Connection</div></div><div class="week-card-body week-collapsible-body"><p class="week-desc">People management is about people. Develop emotional intelligence, build trust before you have a title, and learn how to coach conversations that empower others.</p><div class="week-topics"><div class="topic-item">Emotional Intelligence</div><div class="topic-item">Building Trust Before Title</div><div class="topic-item">Coaching Conversations</div><div class="topic-item">Psychological Safety</div></div></div><div class="week-footer"><span class="week-tag">Leading Through Connection</span></div></div>
+    <div class="week-card collapsible" onclick="toggleWeek(this)"><div class="week-card-header"><div class="week-accent"></div><div class="week-num">Week 03</div><div class="week-title">Feedback &amp; Difficult Conversations</div></div><div class="week-card-body week-collapsible-body"><p class="week-desc">Navigate feedback and difficult conversations across peers, cross-functional partners, and even your manager with clarity, confidence, and care.</p><div class="week-topics"><div class="topic-item">Engaging in Feedback Conversations</div><div class="topic-item">Receiving Feedback with Grace</div><div class="topic-item">Navigating Difficult Conversations</div></div></div><div class="week-footer"><span class="week-tag">Effective Feedback</span></div></div>
+    <div class="week-card collapsible" onclick="toggleWeek(this)"><div class="week-card-header"><div class="week-accent"></div><div class="week-num">Week 04</div><div class="week-title">Delegation &amp; Time Leverage</div></div><div class="week-card-body week-collapsible-body"><p class="week-desc">Even without a formal title, the choices you make about your time and how you share ownership with others shape your leadership impact and influence.</p><div class="week-topics"><div class="topic-item">Finding Your Energy Multipliers</div><div class="topic-item">What to Own and What to Let Go</div><div class="topic-item">Enabling Others to Contribute</div></div></div><div class="week-footer"><span class="week-tag">Time &amp; Impact</span></div></div>
+    <div class="week-card collapsible" onclick="toggleWeek(this)"><div class="week-card-header"><div class="week-accent"></div><div class="week-num">Week 05</div><div class="week-title">Growth Mindset &amp; Accountability</div></div><div class="week-card-body week-collapsible-body"><p class="week-desc">Self-leadership shows up in moments of pressure, how you handle setbacks, how you talk to yourself, and how you take ownership of what you can influence.</p><div class="week-topics"><div class="topic-item">Growth Mindset</div><div class="topic-item">Resilience Under Pressure</div><div class="topic-item">Self-Leadership</div></div></div><div class="week-footer"><span class="week-tag">Growth &amp; Ownership</span></div></div>
+    <div class="week-card collapsible" onclick="toggleWeek(this)"><div class="week-card-header"><div class="week-accent"></div><div class="week-num">Week 06</div><div class="week-title">Decision-Making Under Ambiguity</div></div><div class="week-card-body week-collapsible-body"><p class="week-desc">Decision-making is the clearest signal of leadership readiness. As responsibility grows, ambiguity becomes normal. Learn to lead forward with structure and confidence.</p><div class="week-topics"><div class="topic-item">Navigating Ambiguity</div><div class="topic-item">Start With Clarity: The 5 Whys</div><div class="topic-item">Risk &amp; Stakeholder Judgment</div></div></div><div class="week-footer"><span class="week-tag">Root Cause &amp; Decisions</span></div></div>
   </div>
 </section>
 
@@ -692,12 +729,28 @@
 <section id="approach">
   <div class="section-eyebrow">Learning design</div>
   <h2 style="color:var(--white);">How this program works</h2>
-  <p class="section-intro">Each week combines structured learning with reflection exercises — designed to fit into your real work, not interrupt it.</p>
+  <p class="section-intro">Each week combines structured learning with reflection exercises, designed to fit into your real work, not interrupt it.</p>
   <div class="approach-grid">
-    <div class="approach-card"><div class="approach-icon"><svg viewBox="0 0 22 22"><rect x="3" y="3" width="16" height="16" rx="3"/><path d="M7 11h8M7 7h8M7 15h5"/></svg></div><h4>Structured lessons</h4><p>Each week contains 4–6 bite-sized lessons with a clear narrative arc, from concepts to practical application.</p></div>
-    <div class="approach-card"><div class="approach-icon"><svg viewBox="0 0 22 22"><circle cx="11" cy="11" r="8"/><path d="M11 7v4l2.5 2.5"/></svg></div><h4>Self-paced learning</h4><p>Start each module on your schedule. Progress at a pace that lets you genuinely absorb and reflect, not just complete.</p></div>
-    <div class="approach-card"><div class="approach-icon"><svg viewBox="0 0 22 22"><path d="M4 16s1.5-3 5-3 9 3 9 3"/><circle cx="10" cy="8" r="3"/></svg></div><h4>Facilitated by an expert</h4><p>Juliana dos Santos curated and facilitated every week, bringing deep experience in people and leadership development at StackAdapt.</p></div>
-    <div class="approach-card"><div class="approach-icon"><svg viewBox="0 0 22 22"><path d="M11 4l2 6h6L14 14l2 6-5-3.5L6 20l2-6-5-3.5h6z"/></svg></div><h4>Action-oriented outcomes</h4><p>Every lesson ends with clear, concrete takeaways you can bring into your next 1:1, team meeting, or career conversation.</p></div>
+    <div class="approach-card">
+      <div class="approach-circle"><svg viewBox="0 0 22 22"><rect x="3" y="3" width="16" height="16" rx="3"/><path d="M7 11h8M7 7h8M7 15h5"/></svg></div>
+      <h4>Structured lessons</h4>
+      <p>Each week contains 4–6 bite-sized lessons with a clear narrative arc, from concepts to practical application.</p>
+    </div>
+    <div class="approach-card">
+      <div class="approach-circle"><svg viewBox="0 0 22 22"><circle cx="11" cy="11" r="8"/><path d="M11 7v4l2.5 2.5"/></svg></div>
+      <h4>Self-paced learning</h4>
+      <p>Start each module on your schedule. Progress at a pace that lets you genuinely absorb and reflect, not just complete.</p>
+    </div>
+    <div class="approach-card">
+      <div class="approach-circle"><svg viewBox="0 0 22 22"><path d="M4 16s1.5-3 5-3 9 3 9 3"/><circle cx="10" cy="8" r="3"/></svg></div>
+      <h4>Engaging sessions</h4>
+      <p>Curated and facilitated every week, bringing deep experience in people and leadership development at StackAdapt.</p>
+    </div>
+    <div class="approach-card">
+      <div class="approach-circle"><svg viewBox="0 0 22 22"><path d="M11 4l2 6h6L14 14l2 6-5-3.5L6 20l2-6-5-3.5h6z"/></svg></div>
+      <h4>Action-oriented outcomes</h4>
+      <p>Every lesson ends with concrete takeaways you can bring into your next 1:1, team meeting, or career conversation.</p>
+    </div>
   </div>
 </section>
 
@@ -744,7 +797,7 @@
     <div class="hero-stats">
       <div class="stat-item"><span class="stat-num">84+</span><span class="stat-label">Participants</span></div>
       <div class="stat-item"><span class="stat-num">4.7</span><span class="stat-label">NPS / 5</span></div>
-      <div class="stat-item"><span class="stat-num">4.6</span><span class="stat-label">VTS / 5</span></div>
+      <div class="stat-item"><span class="stat-num">4.7</span><span class="stat-label">VTS / 5</span></div>
       <div class="stat-item"><span class="stat-num">+0.81</span><span class="stat-label">Clarity gain</span></div>
     </div>
     <div class="updated-badge">Last updated: July 2026</div>
@@ -860,7 +913,7 @@
     <div class="metric-card">
       <div class="metric-head"><div class="metric-kicker">Recommendation</div><div class="metric-title">Likelihood to recommend to other ICs</div></div>
       <div class="metric-body">
-        <div class="score-meta">NPS avg 4.63 / 5 · n = 60</div>
+        <div class="score-meta">NPS avg 4.7 / 5 · n = 60</div>
         <div class="rating-row"><div class="rating-label">5 — Very likely</div><div class="score-track"><div class="score-fill fill-dark" data-w="72"></div></div><div class="rating-count">43</div></div>
         <div class="rating-row"><div class="rating-label">4 — Likely</div><div class="score-track"><div class="score-fill fill-mid" data-w="22"></div></div><div class="rating-count">13</div></div>
         <div class="rating-row"><div class="rating-label">3 — Neutral</div><div class="score-track"><div class="score-fill fill-light" data-w="5"></div></div><div class="rating-count">3</div></div>
@@ -870,7 +923,7 @@
     <div class="metric-card">
       <div class="metric-head"><div class="metric-kicker">Time value</div><div class="metric-title">Value relative to time invested</div></div>
       <div class="metric-body">
-        <div class="score-meta">VTS avg 4.63 / 5 · n = 60</div>
+        <div class="score-meta">VTS avg 4.7 / 5 · n = 60</div>
         <div class="rating-row"><div class="rating-label">5 — Extremely valuable</div><div class="score-track"><div class="score-fill fill-dark" data-w="72"></div></div><div class="rating-count">43</div></div>
         <div class="rating-row"><div class="rating-label">4 — Moderately valuable</div><div class="score-track"><div class="score-fill fill-mid" data-w="22"></div></div><div class="rating-count">13</div></div>
         <div class="rating-row"><div class="rating-label">3 — Neutral</div><div class="score-track"><div class="score-fill fill-light" data-w="5"></div></div><div class="rating-count">3</div></div>
@@ -889,7 +942,7 @@
     <p class="section-intro">Selected responses from the end-of-program open feedback question.</p>
   </div>
   <div class="voice-grid">
-    <div class="voice-card"><p class="voice-text">"I genuinely believe nothing should be changed — everything was very detailed, aspiring, and painted the most realistic picture of what people management looks like for aspiring leaders."</p><div class="voice-attr">Allen Ortilla</div></div>
+    <div class="voice-card"><p class="voice-text">"I genuinely believe nothing should be changed. Everything was very detailed, aspiring, and painted the most realistic picture of what people management looks like for aspiring leaders."</p><div class="voice-attr">Allen Ortilla</div></div>
     <div class="voice-card"><p class="voice-text">"The process is extremely valuable. For those who haven't managed people before, having more time to practice coaching conversations would be super helpful."</p><div class="voice-attr">Alex Rhead</div></div>
     <div class="voice-card"><p class="voice-text">"I got a lot of value from when we had the speaker and Q&amp;A session. More people manager involvement would make it even better."</p><div class="voice-attr">Josh Herenberg</div></div>
     <div class="voice-card"><p class="voice-text">"I would love a list of resources related to the content — books, YouTube links — so I could revisit them to further my development and growth."</p><div class="voice-attr">Annabelle Loudon</div></div>
@@ -915,24 +968,23 @@
     <div class="motivation-panel" style="text-align:left;">
       <div class="motivation-labels" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.9rem;">
         <div style="display:flex; align-items:center; gap:0.6rem;">
-          <div style="width:36px;height:36px;border-radius:50%;background:var(--green-900);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-            <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="var(--teal-accent)" stroke-width="1.6">
-              <circle cx="10" cy="5" r="2.5"/>
-              <path d="M6 10c0-2 1.8-3 4-3s4 1 4 3"/>
-              <path d="M4 17l2-3h8l2 3"/>
-              <path d="M8 14l-1 3M12 14l1 3"/>
-              <path d="M7 11l-2 1.5M13 11l2 1.5"/>
+          <div style="display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--green-600)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+              <circle cx="9" cy="7" r="4"/>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
             </svg>
           </div>
           <span style="font-size:0.9rem;"><strong style="color:var(--green-600);">66%</strong> <span style="color:var(--gray-700);">Passion for coaching &amp; developing others</span></span>
         </div>
         <div style="display:flex; align-items:center; gap:0.6rem;">
           <span style="font-size:0.9rem; text-align:right;"><strong style="color:var(--green-400);">34%</strong> <span style="color:var(--gray-700);">Advancing career</span></span>
-          <div style="width:36px;height:36px;border-radius:50%;background:var(--green-50);border:1px solid var(--green-100);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-            <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="var(--green-600)" stroke-width="1.6">
-              <path d="M6 18V4M14 18V4"/>
-              <path d="M6 14h8M6 10h8M6 6h8"/>
-              <path d="M11 4l3-3 3 3"/>
+          <div style="display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--green-600)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="12" y1="20" x2="12" y2="4"/>
+              <polyline points="6 10 12 4 18 10"/>
+              <line x1="6" y1="20" x2="18" y2="20"/>
             </svg>
           </div>
         </div>
@@ -961,17 +1013,18 @@
 </footer>
 
 <script>
-  // Nav scroll shadow
+  function toggleWeek(card) {
+    card.classList.toggle('open');
+  }
+
   const nav = document.getElementById('main-nav');
   window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 20));
 
-  // Fade-in on scroll
   const fadeObs = new IntersectionObserver((entries) => {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
   }, { threshold: 0.08 });
   document.querySelectorAll('.animate').forEach(el => fadeObs.observe(el));
 
-  // Animate bars on scroll
   function triggerBars(container) {
     container.querySelectorAll('[data-w]').forEach(el => { el.style.width = el.dataset.w + '%'; });
   }
